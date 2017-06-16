@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Web Game For Studying Language Evolution</title>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href=style.css>	 	
+	<link rel="icon" type="image/png" href="block.png">
+	
+	<script src="block_script.js"></script>	
+	<script src="config.js"></script>
+	<script src="test01.js"></script>
+  </head>
+  <body> 	
+	
+	<div id="wrapper">
+		<div id="first">						
+		</div>
+		<div id="second">
+			<div style="width:100%; height:100%;">
+				<span >Instruction:</span>
+				<h3 id="instruction">
+					Instruction
+				</h3>
+			</div>
+		</div>
+		<div id="third">
+			<span >Blocks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			Task:</span >
+			<div id="blocks" style="width:100%; height:100%;" >				
+				<canvas id="blocksCanvas" width="800" height="400"></canvas>
+				<button id="help" style="position: absolute; top:90px; left:700px;" onclick="document.getElementById('instructions').style.display = 'block';">?</button>
+				<button id="reset" style="position: absolute; top:120px; left:700px;" onclick="loadAllCanvas();">Restart level</button>
+				<button id="submit" style="position: absolute; top:450px; left:700px;" onclick="submitAnswer();">Submit</button>
+				<button id="next" style="position: absolute; top:480px; left:700px;" onclick="nextLevel();">Next</button>
+			</div>
+			<span >Question mark '?' button for help.</span >
+		</div>		
+	</div>
+	<div class="instructions" id="instructions"  >
+		<div id='close' onclick="document.getElementById('instructions').style.display = 'none';">x</div>
+		<h3>Instructions:</h3>
+		<br/>
+		<img src="instruction.png">
+		<div style="position: absolute;top:25px;left:220px;padding:10px;">
+			<img src="click.png"><span class="numberCircle">&nbsp;5&nbsp;</span><img src="floor.png"><img src="place.png">
+			<p>Understand the meaning of the instruction in <span class="numberCircle">&nbsp;1&nbsp;</span>.</p>
+			<p>Click a block from the blocks in <span class="numberCircle">&nbsp;2&nbsp;</span> and drag it to the task <span class="numberCircle">&nbsp;3&nbsp;</span> over the floor <span class="numberCircle">&nbsp;5&nbsp;</span>. Or remove a block in the same way.</p>
+			<p>You have a number of attempts on each task shown in <span class="numberCircle">&nbsp;4&nbsp;</span>.
+			<p>If the pattern is correct you can continue with the next task. Otherwise, if you have attempts left you can drag and move the blocks again.</p>
+			<h3>Buttons</h3>
+			<p>Submit: Press the button when you have the desired block pattern to evaluate if its correct.</p>
+			<p>Restart level: Return the blocks to their initial place.</p>		
+			<p>Next: If the pattern is correct or you have no more attempts, press Next to move to the next task.</p>
+			<button onclick="document.getElementById('instructions').style.display = 'none';">Close</button>
+		</div>
+	</div>
+	<script src="block_action.js"></script>	
+  </body>
+</html>
+<!--
+Copyright (c) 2017 by Ash Kyd (http://codepen.io/AshKyd/pen/JYXEpL)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->

@@ -1,7 +1,78 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+	<!-- https://s1463002.github.io/ -->
+    <meta charset="UTF-8">
+    <title>Web Game For Studying Language Evolution</title>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href=style.css>	 
+	<link rel="icon" type="image/png" href="block.png">	
+	<script src="block_script.js"></script>	
+	<script src="block_action.js"></script>	
+  </head>
+  <body>  		
+	<center>
+		<canvas id="canvas1" width="200" height="120"></canvas>
+		<div style="border:1px solid black; width:70%; height:45vh; padding:10px; margin:10px;overflow-y: auto;">
+			<p>
+				I am a student in MSc Artificial Intelligence. For my dissertation, I have selected to study the language evolution with a web game. The game consists of participants using instructions in an artificial language to communicate with each other and solve different tasks.
+			</p>
+			<p>
+				In this game, I am investigating the difficulties and the ability of participants to communicate through different tasks with an artificial vocabulary. At the end of the tasks, I will ask for some information about yourself, the game and any issue solving or understanding the tasks, and the game interface. The survey does not ask you details to identify you and the responses will be used only for the dissertation. 
+			</p>
+			<p>
+				Completing the game and survey will take about 30 minutes. All the data that you provide will be stored in a database and user-level access will be restricted to myself and my supervisor. In order to finish the game finish all the tasks and complete the survey. Questions in the survey marked with a red star are mandatory, you will need to answer them to complete the survey. You can drop at anytime.
+			</p>
+			<p>
+				This project has undergone ethical screening in accordance with the University of Edinburgh School of Informatics ethics process (RT1432). For any complain or query feel free to send an e-mail to the supervisor of this project Chris Lucas to clucas2@inf.ed.ac.uk, or to myself Omar Abarca Arriaga to s1463002@sms.ed.ac.uk
+			</p>
+			<p>
+				Do you agree to take part in this study, and do you agree that I can use your data for my Dissertation project in a web game for studying language evolution?
+			</p>
+		</div>
+	
+		<form 
+			onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the consent form'); return false; }"
+			method="post" action="experiment1.html">
+			<input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the consent form.<br/>
+			<input type="submit" name="submit" value="submit" />
+		</form>
+	</center>
+	
+	<script>
+		// Animation function
+		function draw(){			
+			var canvas = document.getElementById("canvas1");
+			var ctx = canvas.getContext('2d');
+			// clear the canvas
+			ctx.clearRect(0, 0, canvas.width, canvas.height);		  
+			
+			// Wobble the cube using a sine wave
+			var wobble = Math.sin(Date.now()/250)*5;		  
+			// draw the cube
+			drawCube(
+				ctx,
+				canvas.width/2,
+				110 + wobble,
+				50,
+				50,
+				50,
+				'#2E64FE'
+			);
+
+			requestAnimationFrame(draw);
+		}
+		draw();
+		resetVariables();
+	</script>
+  </body>
 </html>
+<!--
+Copyright (c) 2017 by Ash Kyd (http://codepen.io/AshKyd/pen/JYXEpL)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
