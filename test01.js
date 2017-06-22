@@ -20,6 +20,8 @@ var y_floor = 200;//coorditanes where the task space start
 var blocks_per_floor = 1;//Number of blocks that can be placed horitonzally
 var current_blocks = '';//Participant solving and using blocks 
 var current_task = '';//Participant solving task panel bottom right
+var creatingInstruction = [];//Creates the instruction for the next participant
+var newInstructions = [];//New instructions
 
 var instructions = [
 	"wiku shau netse", 	

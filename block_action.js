@@ -5,7 +5,7 @@
 
 	function writeMessage(canvas, message) {
         var context = canvas.getContext('2d');
-        context.clearRect(5, canvas.height-25, 150, 25);
+        context.clearRect(5, canvas.height-25, 125, 25);
         context.font = '14pt Calibri';
         context.fillStyle = 'black';
         context.fillText(message, 5, canvas.height-10);
@@ -227,6 +227,21 @@
 		var context = canvas.getContext('2d');
 		context.clearRect(0, 0, b_size*5, canvas.height-25);
 		
+		
+		context.beginPath();
+		context.lineWidth = 2;
+		context.strokeStyle = '#0099ff';
+		context.moveTo(b_size*5,0);
+		context.lineTo(b_size*5,canvas.height);
+		context.stroke();
+		
+		context.moveTo(0,0);
+		context.lineTo(canvas.width,0);
+		context.stroke();
+		
+		context.lineWidth = 1;
+		
+		
 		cubes = [];
 		for (var i = 0; i < current_blocks.length; i++) {
 			var current_block = current_blocks.charAt(i);
@@ -286,6 +301,19 @@
 		floor_number = 0;
 		count=0;
 		
+		context.beginPath();
+		context.lineWidth = 2;
+		context.strokeStyle = '#0099ff';
+		context.moveTo(b_size*5,0);
+		context.lineTo(b_size*5,canvas.height);
+		context.stroke();
+		
+		context.moveTo(0,0);
+		context.lineTo(canvas.width,0);
+		context.stroke();
+		
+		context.lineWidth = 1;
+		
 		task_cubes=[];
 		blocks_per_floor = 0;
 		for (var i = 0; i < cur_task.length; i++) {
@@ -336,6 +364,10 @@
 		ctx.lineTo(x - 30, y + 30);
 		ctx.stroke();
 		ctx.lineWidth = 1;
+		      
+		ctx.font = '14pt Calibri';
+		ctx.fillStyle = 'black';
+		ctx.fillText('Incorrect', x+30,y);			
 	}
 	
 	function drawO(canvas, x, y) {
@@ -352,6 +384,10 @@
 		ctx.strokeStyle = '#00b300';
 		ctx.stroke();
 		ctx.lineWidth = 1;
+		
+		ctx.font = '14pt Calibri';
+		ctx.fillStyle = 'black';
+		ctx.fillText('Correct', x+40,y);
 	}
 
 	function showButton(element,status) {
@@ -388,6 +424,30 @@
 		}		
 	}
 	
+	function submitAnswer2(){	
+		if(creatingInstruction.length==0){
+			alert("You need to write an instruction in order to submit.")
+			return;
+		}
+			
+		level++;
+		
+		var string = "";
+		for (var i = 0; i < creatingInstruction.length; i++) {
+			string+=creatingInstruction[i];
+		}
+		newInstructions.push(string.trim());
+			
+		if(level<tasks.length){			
+			loadAllCanvas2();
+		}else{
+			level=tasks.length-1;
+			//instructions = newInstructions;
+			//window.open("experiment1.html","_self");
+			alert('Survey time!')
+		}	
+	}
+	
 	function blockAndNext(){
 		block_actions=1;
 		
@@ -413,7 +473,7 @@
 			loadAllCanvas();
 		}else{
 			level=tasks.length-1;
-			alert('Survey time!')
+			window.open("experiment2.html","_self");
 		}		
 	}
 	////////RUN LOAD/////////////////////////	
@@ -427,10 +487,77 @@
 		showButton('next',0);
 		loadInstruction();
 		loadBlocks(blocksCanvas,tasks[level].blocks);
-		current_task = loadTask(blocksCanvas,tasks[level].before);
+		current_task = loadTask(blocksCanvas,tasks[level].before);		
 		writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');
+	}	
+	
+	function loadAllCanvas2(){		
+		printInstruction('',-1);
+		var context = blocksCanvas.getContext('2d');
+		context.clearRect(0, 0, blocksCanvas.width, blocksCanvas.height);
+		
+		block_actions=1;
+		
+		loadTask(blocksCanvas,tasks[level].before);
+		loadTask(blocksCanvas,tasks[level].after,-1,300);
+		loadBlocks(blocksCanvas,tasks[level].blocks);
+		
+		var context = blocksCanvas.getContext('2d');        
+		context.font = '14pt Calibri';
+		context.fillStyle = 'black';
+		context.fillText('Before:', 170,210);			
+		context.fillText('After:', 470,210);		
+		
+	}	
+	
+	function printInstruction(val,op){
+		var newInstruction = document.getElementById("newInstruction");
+		
+		if(op==1){
+			if(!(creatingInstruction.length>0 && val==' ' && creatingInstruction[creatingInstruction.length-1]==' '))
+				creatingInstruction.push(val);
+		}else if(op==0){
+			creatingInstruction.pop();
+		}else{
+			creatingInstruction=[];
+		}		
+		newInstruction.innerHTML = "";
+		for (var i = 0; i < creatingInstruction.length; i++) {
+			if(i==creatingInstruction.length-1 && creatingInstruction[i]==' ')
+				newInstruction.innerHTML += "_";
+			else
+				newInstruction.innerHTML += creatingInstruction[i];
+		}
 	}
-	loadAllCanvas();
+	
+	function createKeyboard(){
+		var n = 0;
+		var space = 0;
+		var backspace = 0;
+		var kb = document.getElementById("keyboard");
+		for (var i = 0; i < tokens.length; i++) {
+			var val = tokens[i];
+			if(val==' '){
+				space=1;
+			}else{
+				n++;
+				kb.innerHTML += '<button id="but'+i+'" style="width:40px;cursor:pointer;" onclick="printInstruction(\''+val+'\',1);">'+val+'</button>';
+				if(n>tokens.length/3){
+					if(backspace==0){
+						kb.innerHTML += '<button id="butD" style="width:60px;cursor:pointer;" onclick="printInstruction(\'\',0);">Delete</button>';
+						backspace=1;
+					}
+					kb.innerHTML += '<br/>';
+					n=0;
+				}
+			}
+			
+		}	
+		//kb.innerHTML += '<button id="submit" onclick="submitAnswer2();">Submit</button>';
+		if(space==1)
+			kb.innerHTML += '<br/><button id="but0" style="width:500px;cursor:pointer;" onclick="printInstruction(\' \',1);">Space</button>';
+		
+	}	
 	
 	//COOKIES
 	function setVariables(){
@@ -476,4 +603,5 @@
 		current_task = cookies[7];*/
 	}
 
+	//loadAllCanvas();
 	
