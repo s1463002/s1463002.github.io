@@ -13,7 +13,8 @@
   <body>  		
 	<center>
 		<canvas id="canvas1" width="200" height="120"></canvas>
-		<div style="border:1px solid black; width:70%; height:45vh; padding:10px; margin:10px;overflow-y: auto;">
+		<div style="border:1px solid #8c8c8c; width:70%; height:45vh; padding-left:10px;padding-right:10px; margin:10px;overflow-y: auto;background-color:white;">
+			<h3>Web Game For Studying Language Evolution.</h3>
 			<p>
 				I am a student in MSc Artificial Intelligence. For my dissertation, I have selected to study the language evolution with a web game. The game consists of participants using instructions in an artificial language to communicate with each other and solve different tasks.
 			</p>
@@ -30,13 +31,14 @@
 				Do you agree to take part in this study, and do you agree that I can use your data for my Dissertation project in a web game for studying language evolution?
 			</p>
 		</div>
-	
-		<form 
-			onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the consent form'); return false; }"
-			action="experiment1.html">
-			<input type="checkbox" name="checkbox" value="check" id="agree" /> I have read and agree to the consent form.<br/>
-			<input type="submit" name="submit" value="submit" />
-		</form>
+		<div style="background-color:white;border-radius: 15px;width:400px;padding:2px 0px;border:1px solid #8c8c8c;">
+			<form 
+				onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the consent form'); return false; }"
+				action="experiment1.html">
+				<input type="checkbox" name="checkbox" value="check" id="agree" /><strong> I have read and agree to the consent form.</strong> <br/>
+				<input type="submit" name="submit" value="submit" />
+			</form>
+		</div>
 	</center>
 	
 	<script>
