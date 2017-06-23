@@ -1,5 +1,3 @@
-var level = 0;
-
 var b_size = 30;
 
 var tasks = [{"blocks":"1","before":"0","after":"1"},
@@ -9,6 +7,10 @@ var tasks = [{"blocks":"1","before":"0","after":"1"},
 {"blocks":"","before":"123_120_100","after":"000"},
 {"blocks":"2","before":"123456_123406_123006_120006_100000","after":"123456_123406_123006_122006_100000"}]
 
+var experiment = 1;
+var level = 0;
+var done = 0;
+var showInstructions = 'block';
 var block_actions = 0;
 var numberAttempts = 5;
 var currentAttempts = 0;
@@ -37,7 +39,8 @@ var instructions = [
 	//place orange block over all blue block
 	//remove all block
 	//Place orange block over green block
-	
+instructionsB =	instructions;
+
 var tokens=[" ","a","e","i","o","u","wa","we","wi","wo","wu","ka","ke","ki","ko","ku","ta","te","ti","to","tu","sha","she","shi","sho","shu","ba","be","bi","bo","bu","na","ni","nu","ne","no","tsa","tsi","tsu","tse","tso"];
 
 var block_colors=[

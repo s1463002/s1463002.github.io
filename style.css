@@ -1,5 +1,6 @@
 body {
   font-family: 'Droid Sans', sans-serif;  
+  background-image: url("mosaicgs.png");
 }
 p {
 	text-align:justify;
@@ -15,12 +16,20 @@ div {
 
 #wrapper {
     width: 800px;
-    height:470px;
+    height:520px;
 
-	 margin-left:50px;
-	 margin-top:20px;
+	margin-left:0px;
+	margin-top:20px;
+	 
+	border-radius: 15px;
+		
+    padding:2px 0px;
+    background:#e6e6e6;
 }
+#wrapper:hover {
+    box-shadow: 2px 2px 5px rgba(0,0,0,.2);
 
+}
 #first {
     float:left;
     width: 200px;
@@ -34,6 +43,7 @@ div {
 }
 
 #third {
+	padding-left:5px;
     float:left;
     width: 800px;
     height: 400px;
@@ -42,24 +52,22 @@ div {
 .instructions{
 	background-color:white;
 	position: absolute; 
-	top:25px; 
-	left:25px; 
 	border: 1px solid #ccc;
-	width:850px;
+	width:820px;
 	height:550px;
 	padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 5px;	
+	display:none;
 }
 .instructions2{
 	background-color:white;
 	position: absolute; 
-	top:320px; 
-	left:50px; 
-	border: 2px solid #0099ff;
-	width:800px;
-	height:105px;
+	top:370px; 
+	border: 1px solid #8c8c8c;
+	width:777px;
+	height:120px;
 	padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
@@ -68,7 +76,7 @@ div {
 .instructions h3 {
     padding: 0;
     margin: 0;
-    color: #369;
+    color: #002966;//369;
 }
 .instructions:hover {
     box-shadow: 2px 2px 5px rgba(0,0,0,.2);

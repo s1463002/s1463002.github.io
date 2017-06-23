@@ -12,32 +12,38 @@
 	<script src="test01.js"></script>
   </head>
   <body> 	
-	
-	<div id="wrapper">		
-		<div id="third">
-			<span >Blocks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			Task</span >
-			<div id="blocks" style="width:100%; height:100%;" >				
-				<canvas id="blocksCanvas" width="800" height="400"></canvas>
-				<button id="help" style="cursor:pointer;position: absolute; top:50px; left:500px;" onclick="document.getElementById('instructions').style.display = 'block';">?</button>				
+	<center>
+		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">		
+			<div id="third">
+				<span >Blocks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Task</span >
+				<div id="blocks" style="width:100%; height:100%;" >				
+					<canvas id="blocksCanvas" width="800" height="400"></canvas>
+					<button id="help" style="cursor:pointer;position: absolute; top:50px; left:50%;" onclick="showInstructionPopUp('block');">?</button>				
+				</div>
+				<div class="instructions2">	
+					Instruction: <div id="newInstruction" style="display: inline-block;padding-left:15px;width:600px;border-radius: 25px;border: 1px solid #8c8c8c;"></div>
+					<button id="submit" style="display:inline;cursor:pointer;" onclick="submitAnswer2();">Submit</button> 
+					<br/><center><div id="keyboard"></div></center>		
+					<span >Question mark '?' button for help.</span >
+				</div>			
+			</div>		
+			
+			<div class="instructions" id="instructions" >
+				<div id='close' style="cursor:pointer;" onclick="showInstructionPopUp('none');">x</div>		
+				<h3>Part 2: Read the following instructions of the game:</h3>
+				<br/>
+				Blabla
 			</div>
-			<span >Question mark '?' button for help.</span >
 		</div>		
-	</div>
-	<div class="instructions2">	
-		Instruction: <div id="newInstruction" style="display: inline-block;padding-left:15px;width:600px;border-radius: 25px;border: 1px solid #0099ff;"></div>
-		<button id="submit" style="display:inline;cursor:pointer;" onclick="submitAnswer2();">Submit</button> 
-		<br/><center><div id="keyboard"></div></center>
-	</div>
-	<div class="instructions" id="instructions" >
-		<div id='close' style="cursor:pointer;" onclick="document.getElementById('instructions').style.display = 'none';">x</div>		
-		<h3>Part 2: Read the following instructions of the game:</h3>
-		<br/>
-		Blabla
-	</div>
+	</center>
+	
+	<button id="resetVariables" style="cursor:pointer;position: absolute; top:0; left:0px;" onclick="resetVariables();">resetVariables</button>
+	
 	<script src="block_action.js"></script>	
 	<script>
+		getVariables();
 		loadAllCanvas2();
 		createKeyboard();
 	</script>

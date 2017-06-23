@@ -152,12 +152,13 @@
 				selected_column = i;				
 			}
 		}
-		if(selected_column==-1){
-			if(click_block!=-1)
-				showButton('submit',1);
+		if(selected_column==-1){			
+			if(click_block!=-1){
+				showButton('submit',1);				
+			}
 			click_block = -1;
 			loadBlocks(blocksCanvas,current_blocks,-1,clickedX,clickedY);
-			current_task = loadTask(blocksCanvas,current_task);					
+			current_task = loadTask(blocksCanvas,current_task);							
 		}		
 		//Place a block in the task		
 		if (click_block!=-1 && selected_column!=-1) {
@@ -200,9 +201,9 @@
 			current_blocks = cur_blocks;			
 			click_block=-1;
 			loadBlocks(blocksCanvas,current_blocks,click_block,clickedX,clickedY);							
-			current_task = loadTask(blocksCanvas,current_task);
+			current_task = loadTask(blocksCanvas,current_task);			
 		}	
-				
+		setVariables();				
 	});
 	
 	///////////////////LOAD/////////////////////////
@@ -229,8 +230,8 @@
 		
 		
 		context.beginPath();
-		context.lineWidth = 2;
-		context.strokeStyle = '#0099ff';
+		context.lineWidth = 1;
+		context.strokeStyle = '#8c8c8c';
 		context.moveTo(b_size*5,0);
 		context.lineTo(b_size*5,canvas.height);
 		context.stroke();
@@ -302,8 +303,8 @@
 		count=0;
 		
 		context.beginPath();
-		context.lineWidth = 2;
-		context.strokeStyle = '#0099ff';
+		context.lineWidth = 1;
+		context.strokeStyle = '#8c8c8c';
 		context.moveTo(b_size*5,0);
 		context.lineTo(b_size*5,canvas.height);
 		context.stroke();
@@ -407,25 +408,27 @@
 		return 0;
 	}
 	
-	function submitAnswer(){	
+	function submitAnswer(){			
 		showButton('submit',0);
 		currentAttempts++;			
 		if(tasks[level].after==current_task){				
 			//writeMessage(blocksCanvas, 'Correct!');
 			drawO(blocksCanvas,250,300);
-			writeMessage(blocksCanvas,'');
+			writeMessage(blocksCanvas,'');			
 		}else{
 			//writeMessage(blocksCanvas, 'Sorry its incorrect.');						
 			drawX(blocksCanvas,250,300);
 			writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');
 		}
+		//showVariables();
+		setVariables();	
 		if(currentAttempts>=numberAttempts || tasks[level].after==current_task){
 			blockAndNext();
 		}		
 	}
 	
-	function submitAnswer2(){	
-		if(creatingInstruction.length==0){
+	function submitAnswer2(){			
+		if(creatingInstruction.length==0 || (creatingInstruction.length==1 && creatingInstruction[0]==' ')){
 			alert("You need to write an instruction in order to submit.")
 			return;
 		}
@@ -437,11 +440,14 @@
 			string+=creatingInstruction[i];
 		}
 		newInstructions.push(string.trim());
-			
+					
 		if(level<tasks.length){			
 			loadAllCanvas2();
+			setVariables();	
+			//showVariables();
 		}else{
 			level=tasks.length-1;
+			setVariables();	
 			//instructions = newInstructions;
 			//window.open("experiment1.html","_self");
 			alert('Survey time!')
@@ -450,6 +456,7 @@
 	
 	function blockAndNext(){
 		block_actions=1;
+		done=1;
 		
 		if(tasks[level].after!=current_task){
 			loadTask(blocksCanvas,tasks[level].after,-1,300);
@@ -463,21 +470,27 @@
 		
 		showButton('reset',0);
 		showButton('submit',0);
-		showButton('next',1);			
+		showButton('next',1);
+		setVariables();			
 	}
 	
 	function nextLevel(){
 		level++;
-		if(level<tasks.length){
-			currentAttempts = 0;
+		done=0;
+		currentAttempts = 0;
+		if(level<tasks.length){			
+			setVariables();	
 			loadAllCanvas();
 		}else{
-			level=tasks.length-1;
+			level=0;
+			experiment=2;
+			showInstructions='block';
+			setVariables();				
 			window.open("experiment2.html","_self");
 		}		
 	}
 	////////RUN LOAD/////////////////////////	
-	function loadAllCanvas(){		
+	function loadAllCanvas(){	
 		var context = blocksCanvas.getContext('2d');
 		context.clearRect(0, 0, blocksCanvas.width, blocksCanvas.height);
 		
@@ -488,10 +501,10 @@
 		loadInstruction();
 		loadBlocks(blocksCanvas,tasks[level].blocks);
 		current_task = loadTask(blocksCanvas,tasks[level].before);		
-		writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');
+		writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');		
 	}	
 	
-	function loadAllCanvas2(){		
+	function loadAllCanvas2(){	
 		printInstruction('',-1);
 		var context = blocksCanvas.getContext('2d');
 		context.clearRect(0, 0, blocksCanvas.width, blocksCanvas.height);
@@ -528,7 +541,7 @@
 			else
 				newInstruction.innerHTML += creatingInstruction[i];
 		}
-	}
+	}	
 	
 	function createKeyboard(){
 		var n = 0;
@@ -559,8 +572,38 @@
 		
 	}	
 	
+	function showInstructionPopUp(val){
+		showInstructions=val;
+		document.getElementById('instructions').style.display = showInstructions;				
+		setVariables();
+	}
+	
 	//COOKIES
+	function showVariables(){
+		
+		alert(" experiment: "+experiment
+			+"\n level: "+level
+			+"\n done: "+done
+			+"\n showInstructions: "+showInstructions
+			+"\n block_actions: "+block_actions
+			+"\n currentAttempts: "+currentAttempts
+			+"\n cubes: "+ JSON.stringify(cubes)
+			+"\n task_cubes: "+ JSON.stringify(task_cubes)
+			+"\n click_block: "+click_block
+			+"\n blocks_per_floor: "+blocks_per_floor
+			+"\n current_blocks: "+current_blocks
+			+"\n current_task: "+current_task
+			+"\n creatingInstruction: "+creatingInstruction
+			+"\n newInstructions: "+newInstructions
+			+"\n instructions: "+instructions);
+			
+	}
+	
 	function setVariables(){
+		localStorage.setItem("experiment", experiment.toString());
+		localStorage.setItem("level", level.toString());
+		localStorage.setItem("done", done.toString());
+		localStorage.setItem("showInstructions", showInstructions);		
 		localStorage.setItem("block_actions", block_actions.toString());
 		localStorage.setItem("currentAttempts", currentAttempts.toString());
 		localStorage.setItem("cubes", JSON.stringify(cubes));
@@ -569,10 +612,18 @@
 		localStorage.setItem("blocks_per_floor", blocks_per_floor.toString());
 		localStorage.setItem("current_blocks", current_blocks);
 		localStorage.setItem("current_task", current_task);
+		localStorage.setItem("creatingInstruction", creatingInstruction);
+		localStorage.setItem("newInstructions", newInstructions);
+		localStorage.setItem("instructions", instructions);
 		//document.cookie = "block_actions="+block_actions+";currentAttempts="+currentAttempts+";cubes="+JSON.stringify(cubes)+";task_cubes="+JSON.stringify(task_cubes)+";click_block="+click_block+";blocks_per_floor="+blocks_per_floor+";current_blocks="+current_blocks+";current_task="+current_task+";";		
 	}
 	
 	function resetVariables(){
+		//showVariables();
+		localStorage.setItem("experiment", "1");
+		localStorage.setItem("level", "0");
+		localStorage.setItem("done", "0");
+		localStorage.setItem("showInstructions", "block");		
 		localStorage.setItem("block_actions", "0");
 		localStorage.setItem("currentAttempts", "0");
 		localStorage.setItem("cubes", "[]");
@@ -581,9 +632,20 @@
 		localStorage.setItem("blocks_per_floor", "1");
 		localStorage.setItem("current_blocks", "");
 		localStorage.setItem("current_task", "");
+		localStorage.setItem("creatingInstruction", "");
+		localStorage.setItem("newInstructions", newInstructions);
+		localStorage.setItem("instructions", instructionsB);	
+		location.reload();		
 	}
 	
-	function getVariables(){
+	function getVariables(){		
+		if (localStorage.getItem("level") === null) {			
+		  return;
+		}
+		experiment = parseInt(localStorage.getItem("experiment"));
+		level = parseInt(localStorage.getItem("level"));
+		done = parseInt(localStorage.getItem("done"));
+		showInstructions = localStorage.getItem("showInstructions");		
 		block_actions = parseInt(localStorage.getItem("block_actions"));
 		currentAttempts = parseInt(localStorage.getItem("currentAttempts"));
 		cubes = JSON.parse(localStorage.getItem("cubes"));
@@ -592,6 +654,27 @@
 		blocks_per_floor = parseInt(localStorage.getItem("blocks_per_floor"));
 		current_blocks = localStorage.getItem("current_blocks");
 		current_task = localStorage.getItem("current_task");
+		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");
+		newInstructions = localStorage.getItem("newInstructions").split(",");
+		instructions = localStorage.getItem("instructions").split(",");
+			
+		var x = document.URL
+		if(experiment==1){
+			if(x.includes("experiment2")){
+				window.open("experiment1.html","_self");
+			}
+			if(done==1){
+				nextLevel();
+			}
+		}		
+		if(x.includes("experiment1") && experiment==2){
+			window.open("experiment2.html","_self");
+		}
+		
+		
+		showInstructionPopUp(showInstructions);
+		//showVariables();
+		
 		/*var cookies = document.cookie.split(";");
 		block_actions = parseInt(cookies[0]);
 		currentAttempts = parseInt(cookies[1]);
