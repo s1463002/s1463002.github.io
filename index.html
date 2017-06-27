@@ -7,12 +7,13 @@
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href=style.css>	 
 	<link rel="icon" type="image/png" href="block.png">	
+	<script src="test01.js"></script>
 	<script src="block_script.js"></script>	
 	<script src="block_action.js"></script>	
   </head>
   <body>  		
 	<center>
-		<canvas id="canvas1" width="200" height="120"></canvas>
+		<canvas id="canvas1" width="200" height="120"></canvas>		
 		<div style="border:1px solid #8c8c8c; width:70%; height:45vh; padding-left:10px;padding-right:10px; margin:10px;overflow-y: auto;background-color:white;">
 			<h3>Web Game For Studying Language Evolution.</h3>
 			<p>
@@ -32,16 +33,13 @@
 			</p>
 		</div>
 		<div style="background-color:white;border-radius: 15px;width:400px;padding:2px 0px;border:1px solid #8c8c8c;">
-			<form 
-				onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the consent form'); return false; }"
-				action="experiment1.html">
-				<input type="checkbox" name="checkbox" value="check" id="agree" /><strong> I have read and agree to the consent form.</strong> <br/>
-				<input type="submit" name="submit" value="submit" />
-			</form>
+			<input type="checkbox" name="checkbox" value="check" id="agree" /><strong> I have read and agree to the consent form.</strong> <br/>
+			<button name="submit" value="submit" onclick="agreeEthics();">Submit</button>
 		</div>
 	</center>
-	
+	<canvas id="blocksCanvas" width="1" height="1"></canvas>
 	<script>
+		getVariables();
 		// Animation function
 		function draw(){			
 			var canvas = document.getElementById("canvas1");
@@ -64,8 +62,7 @@
 
 			requestAnimationFrame(draw);
 		}
-		draw();
-		resetVariables();
+		draw();		
 	</script>
   </body>
 </html>

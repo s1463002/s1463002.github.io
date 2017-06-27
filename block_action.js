@@ -30,7 +30,10 @@
 	
 	///////////////////EVENTS Blocks///////////////////    
     blocksCanvas.addEventListener('mousemove', function(e) {
-		if(block_actions==1) return;
+		if(block_actions==1){
+			e.target.style.cursor = 'not-allowed';
+			return;
+		} 
 		
 		//e.target.style.cursor = 'pointer'
 		//e.target.style.cursor="url(http://www.google.com/intl/en_ALL/mapfiles/openhand.cur)";		
@@ -447,10 +450,11 @@
 			//showVariables();
 		}else{
 			level=tasks.length-1;
+			experiment=3;
 			setVariables();	
 			//instructions = newInstructions;
-			//window.open("experiment1.html","_self");
-			alert('Survey time!')
+			//window.open("experiment1.html","_self");			
+			window.open("survey.html","_self");
 		}	
 	}
 	
@@ -572,13 +576,23 @@
 		
 	}	
 	
-	function showInstructionPopUp(val){
+	function showInstructionPopUp(val){		
 		showInstructions=val;
 		document.getElementById('instructions').style.display = showInstructions;				
 		setVariables();
 	}
 	
 	//COOKIES
+	function agreeEthics(){
+		if(document.getElementById('agree').checked) { 
+			experiment=1;
+			setVariables();
+			window.open("experiment1.html","_self");			
+		} else { 
+			alert('Please indicate that you have read and agree to the consent form'); return false;
+		}
+	}
+	
 	function showVariables(){
 		
 		alert(" experiment: "+experiment
@@ -620,7 +634,7 @@
 	
 	function resetVariables(){
 		//showVariables();
-		localStorage.setItem("experiment", "1");
+		localStorage.setItem("experiment", "0");
 		localStorage.setItem("level", "0");
 		localStorage.setItem("done", "0");
 		localStorage.setItem("showInstructions", "block");		
@@ -633,15 +647,16 @@
 		localStorage.setItem("current_blocks", "");
 		localStorage.setItem("current_task", "");
 		localStorage.setItem("creatingInstruction", "");
-		localStorage.setItem("newInstructions", newInstructions);
+		localStorage.setItem("newInstructions", "");
 		localStorage.setItem("instructions", instructionsB);	
 		location.reload();		
 	}
 	
-	function getVariables(){		
+	function getVariables(){
 		if (localStorage.getItem("level") === null) {			
-		  return;
-		}
+			resetVariables();
+			return;
+		}		
 		experiment = parseInt(localStorage.getItem("experiment"));
 		level = parseInt(localStorage.getItem("level"));
 		done = parseInt(localStorage.getItem("done"));
@@ -654,25 +669,34 @@
 		blocks_per_floor = parseInt(localStorage.getItem("blocks_per_floor"));
 		current_blocks = localStorage.getItem("current_blocks");
 		current_task = localStorage.getItem("current_task");
-		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");
+		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");		
 		newInstructions = localStorage.getItem("newInstructions").split(",");
 		instructions = localStorage.getItem("instructions").split(",");
-			
+		
 		var x = document.URL
+		if(experiment==0 && !x.includes("index")){
+			window.open("index.html","_self");
+		}
 		if(experiment==1){
-			if(x.includes("experiment2")){
+			if(!x.includes("experiment1")){
 				window.open("experiment1.html","_self");
 			}
 			if(done==1){
 				nextLevel();
 			}
 		}		
-		if(x.includes("experiment1") && experiment==2){
+		if(experiment==2 && !x.includes("experiment2")){
 			window.open("experiment2.html","_self");
 		}
-		
-		
-		showInstructionPopUp(showInstructions);
+		if(experiment==3 && !x.includes("survey")){
+			window.open("survey.html","_self");
+		}
+		if(experiment==4 && !x.includes("done")){
+			window.open("done.html","_self");
+		}
+
+		if(experiment!=0)
+			showInstructionPopUp(showInstructions);
 		//showVariables();
 		
 		/*var cookies = document.cookie.split(";");
