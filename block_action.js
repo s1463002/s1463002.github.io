@@ -674,25 +674,24 @@
 		instructions = localStorage.getItem("instructions").split(",");
 		
 		var x = document.URL
-		alert(x)
-		if(experiment==0 && !x.includes("index")){
+		if(experiment==0 && x.indexOf("index")==-1){
 			window.open("index.html","_self");
 		}
 		if(experiment==1){
-			if(!x.includes("experiment1")){
+			if(x.indexOf("experiment1")==-1){
 				window.open("experiment1.html","_self");
 			}
 			if(done==1){
 				nextLevel();
 			}
 		}		
-		if(experiment==2 && !x.includes("experiment2")){
+		if(experiment==2 && x.indexOf("experiment2")==-1){
 			window.open("experiment2.html","_self");
 		}
-		if(experiment==3 && !x.includes("survey")){
+		if(experiment==3 && x.indexOf("survey")==-1){
 			window.open("survey.html","_self");
 		}
-		if(experiment==4 && !x.includes("done")){
+		if(experiment==4 && x.indexOf("done")==-1){
 			window.open("done.html","_self");
 		}
 
