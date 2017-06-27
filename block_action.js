@@ -674,6 +674,7 @@
 		instructions = localStorage.getItem("instructions").split(",");
 		
 		var x = document.URL
+		alert(x)
 		if(experiment==0 && !x.includes("index")){
 			window.open("index.html","_self");
 		}
