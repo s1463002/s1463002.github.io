@@ -13,14 +13,16 @@
   </head>
   <body> 	
 	<center>
-		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">		
+		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">			
 			<div id="third">
+				<button id="help" style="cursor:pointer;" onclick="showInstructionPopUp('block');" title="Help">?</button>				
+				<button id="about" style="cursor:pointer;" onclick="showAboutPopUp('block');" title="About">i</button> 
 				<span >Blocks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				Task</span >
+					
 				<div id="blocks" style="width:100%; height:100%;" >				
-					<canvas id="blocksCanvas" width="800" height="400"></canvas>
-					<button id="help" style="cursor:pointer;position: absolute; top:50px; left:50%;" onclick="showInstructionPopUp('block');">?</button>				
+					<canvas id="blocksCanvas" width="800" height="400"></canvas>							
 				</div>
 				<div class="instructions2">	
 					Instruction: <div id="newInstruction" style="display: inline-block;padding-left:15px;width:600px;border-radius: 25px;border: 1px solid #8c8c8c;"></div>
@@ -30,11 +32,45 @@
 				</div>			
 			</div>		
 			
-			<div class="instructions" id="instructions" >
+			<div class="instructions" id="instructions" style="background-color:#e6e6e6;">
 				<div id='close' style="cursor:pointer;" onclick="showInstructionPopUp('none');">x</div>		
 				<h3>Part 2: Read the following instructions of the game:</h3>
-				<br/>
-				Blabla
+				<br/>				
+				<div style="position: absolute;top:20px;padding:50px;" >					
+					<center><img src="instruction2.gif" style="cursor:not-allowed;" width="50%" height="50%" ></center>
+					<ol>
+						<li>Check out which blocks you have in the block section.</li>
+						<li>Check out how is the task before and after solved.</li>
+						<li>Write an instruction with everything you learned before using these keys.</li>
+						<li>Press submit when you are done (Be careful and make the instruction understable and with logic using the vocabulary from the tasks you solved).</li>
+					</ol> 					
+					<!--p>You have a number of attempts on each task shown in <span class="numberCircle">&nbsp;4&nbsp;</span-->					
+					<h3>Buttons</h3>
+					<p><strong>Delete</strong>: Press the button to delete the last token.</p>
+					<p><strong>Submit</strong>: Press the button when you have the desired block pattern to evaluate if its correct.</p>
+					<center><button style="cursor:pointer;" onclick="showInstructionPopUp('none');">Close</button>
+				</div>
+			</div>
+			
+			<div class="instructions" id="about1" align="left" style="background-color:#e6e6e6;" >
+				<div id='close' style="cursor:pointer;" onclick="showAboutPopUp('none');">x</div>		
+				<h3>About the game:</h3>
+				<br/>				
+				<div style="position: absolute;top:50px;padding:50px;" >
+					<center><img width="10%" height="10%" src="blocks.png"></center>
+					<p><strong>In this game, I am investigating the difficulties and the ability of participants to communicate through different tasks 
+					with an artificial vocabulary.</strong></p>	
+					<p>As a player, you need to understand as much as you can the meaning of the instructions and solve the tasks remembering their meaning. 
+					Harder tasks contain a combination of different words from easier tasks. The more you understand each word, 
+					the easier it will be to solve the following tasks.</p>					
+					<p>The objective of the game is to solve all tasks correctly understanding the words given and to 
+					create instructions for the next participant to solve the same tasks using your instructions. 
+					The instructions should be clear, short, and easy to understand for next participants.</p>
+					<p><span style="color:red;font-size:16px;">Warning: </span>Once you have done a task you can not go back to a previous task, 
+					you need to pay attention and try to get the idea of the instruction before going to the next task.
+					You have a fixed number of attempts on each task, therefore, is not a good idea to try random sequences.</p>
+					<center><button style="cursor:pointer;" onclick="showAboutPopUp('none');">Close</button></center>
+				</div>
 			</div>
 		</div>		
 	</center>

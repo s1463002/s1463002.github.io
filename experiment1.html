@@ -14,7 +14,10 @@
   <body> 	
 	<center>
 		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">
-			<div id="first">						
+			<div id="first">	
+					&nbsp;
+					<button id="help" style="cursor:pointer;" onclick="showInstructionPopUp('block');" title="Help">?</button>								
+					<button id="about" style="cursor:pointer;" onclick="showAboutPopUp('block');" title="About">i</button>					
 			</div>
 			<div id="second">
 				<div style="width:100%; height:100%;">
@@ -29,8 +32,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				Task:</span >
 				<div id="blocks" style="width:100%; height:100%;" >				
-					<canvas id="blocksCanvas" width="800" height="400"></canvas>
-					<button id="help" style="cursor:pointer;position: absolute; top:120px; left:50%;" onclick="showInstructionPopUp('block');">?</button>
+					<canvas id="blocksCanvas" width="800" height="400"></canvas>					
 					<button id="reset" style="cursor:pointer;position: absolute; top:150px; left:50%" onclick="loadAllCanvas();">Restart level</button>
 					<button id="submit" style="cursor:pointer;position: absolute; top:450px; left:50%;" onclick="submitAnswer();">Submit</button>
 					<button id="next" style="cursor:pointer;position: absolute; top:480px; left:50%;" onclick="nextLevel();">Next</button>				
@@ -38,24 +40,55 @@
 				<span >Question mark '?' button for help.</span >
 			</div>	
 
-			<div class="instructions" id="instructions" align="left" >
+
+			<div class="instructions" id="instructions" align="left" style="background-color:#e6e6e6;" >
 				<div id='close' style="cursor:pointer;" onclick="showInstructionPopUp('none');">x</div>		
-				<h3>Part 1: Read the following instructions of the game:</h3>
+				<h3>Part 1: Read the following instructions for the game:</h3>
 				<br/>
-				<img src="instruction.png">
-				<div style="position: absolute;top:25px;left:220px;padding:10px;" >
-					<img src="click.png"><span class="numberCircle">&nbsp;5&nbsp;</span><img src="floor.png"><img src="place.png">
-					<p><strong>In this game, I am investigating the difficulties and the ability of participants to communicate through different tasks with an artificial vocabulary.</strong></p>
-					<p>Read the sentence in <span class="numberCircle">&nbsp;1&nbsp;</span>, it give you the instruction of what to do with the blocks for each task. Click and drag from <span class="numberCircle">&nbsp;2&nbsp;</span> to <span class="numberCircle">&nbsp;3&nbsp;</span> over the floor <span class="numberCircle">&nbsp;5&nbsp;</span>. Or from <span class="numberCircle">&nbsp;3&nbsp;</span> to <span class="numberCircle">&nbsp;2&nbsp;</span>.</p>
-					<p>You have a number of attempts on each task shown in <span class="numberCircle">&nbsp;4&nbsp;</span>.
-					<p><strong>If the pattern is correct</strong> you can continue with the next task. Otherwise, if you have attempts left you can drag and move the blocks again.</p>
+				<img src="instruction.gif" style="cursor:not-allowed;">
+				<div style="position: absolute;top:25px;left:120px;padding:30px;" >					
+					<ol>
+						<li>Read the instruction and try to understand it <strong>"wiku shau netse"</strong></li>
+						<li><strong>Click and drag</strong> the blocks to solve the given instruction. 
+						The yellow floor marks the spot where you can place the block. Additionally, you can remove any block from the task.</li>
+						<li>Press <strong>submit</strong> button. If the task is correct press <strong>next</strong>. If the task is incorrect try again!</li>
+						<li>You have a number of attempts on each task shown in the left corner.</li>
+					</ol> 					
+					<!--p>You have a number of attempts on each task shown in <span class="numberCircle">&nbsp;4&nbsp;</span-->					
+					<h3>Actions</h3>
+					<img src="pointer.png">Pointer for allowed buttons to use.<br/>
+					<img src="not-allowed.png">Area not allowed for interaction.<br/>
+					<img src="grab.png">Area possible to grab.<br/>
+					<img src="grabbing.png">Grabbing block.<br/><br/>
 					<h3>Buttons</h3>
-					<p><strong>Submit</strong>: Press the button when you have the desired block pattern to evaluate if its correct.</p>
-					<p><strong>Restart level</strong>: Return the blocks to their initial place.</p>		
-					<p><strong>Next</strong>: If the pattern is correct or you have no more attempts, press Next to move to the next task.</p>
-					<button style="cursor:pointer;" onclick="document.getElementById('instructions').style.display = 'none';">Close</button>
+					<strong>Submit</strong>: Press the button when you have the desired block pattern to evaluate if its correct.<br/>
+					<strong>Restart level</strong>: Return the blocks to their initial place.<br/>		
+					<strong>Next</strong>: If the pattern is correct or you have no more attempts, press Next to move to the next task.<br/>
+					<center><button style="cursor:pointer;" onclick="showInstructionPopUp('none');">Close</button></center>
 				</div>
 			</div>
+			
+			<div class="instructions" id="about1" align="left" style="background-color:#e6e6e6;" >
+				<div id='close' style="cursor:pointer;" onclick="showAboutPopUp('none');">x</div>		
+				<h3>About the game:</h3>
+				<br/>				
+				<div style="position: absolute;top:50px;padding:50px;" >
+					<center><img width="10%" height="10%" src="blocks.png"></center>
+					<p><strong>In this game, I am investigating the difficulties and the ability of participants to communicate through different tasks 
+					with an artificial vocabulary.</strong></p>	
+					<p>As a player, you need to understand as much as you can the meaning of the instructions and solve the tasks remembering their meaning. 
+					Harder tasks contain a combination of different words from easier tasks. The more you understand each word, 
+					the easier it will be to solve the following tasks.</p>					
+					<p>The objective of the game is to solve all tasks correctly understanding the words given and to 
+					create instructions for the next participant to solve the same tasks using your instructions. 
+					The instructions should be clear, short, and easy to understand for next participants.</p>
+					<p><span style="color:red;font-size:16px;">Warning: </span>Once you have done a task you can not go back to a previous task, 
+					you need to pay attention and try to get the idea of the instruction before going to the next task.
+					You have a fixed number of attempts on each task, therefore, is not a good idea to try random sequences.</p>
+					<center><button style="cursor:pointer;" onclick="showAboutPopUp('none');">Close</button></center>
+				</div>
+			</div>
+			
 		</div>				
 	</center>
 	

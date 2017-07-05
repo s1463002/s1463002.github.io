@@ -479,6 +479,24 @@
 	}
 	
 	function nextLevel(){
+		var timeDiff = new Date() - startTime;
+		timeDiff /= 1000;
+		// get seconds (Original had 'round' which incorrectly counts 0:28, 0:29, 1:30 ... 1:59, 1:0)
+		var task_json = {};
+		var seconds = Math.round(timeDiff % 60);
+		task_json.task=level;
+		task_json.time=seconds;
+		if(tasks[level].after==current_task){
+			task_json.result=1;	
+		}else{
+			task_json.result=0;
+		}
+		task_json.attempts=currentAttempts;
+		//alert(JSON.stringify(task_json))
+		
+		answers.push(task_json);
+		//alert(JSON.stringify(answers))
+		
 		level++;
 		done=0;
 		currentAttempts = 0;
@@ -489,15 +507,18 @@
 			level=0;
 			experiment=2;
 			showInstructions='block';
+			showAbout='none';
 			setVariables();				
 			window.open("experiment2.html","_self");
 		}		
 	}
-	////////RUN LOAD/////////////////////////	
+	////////RUN LOAD/////////////////////////		
 	function loadAllCanvas(){	
 		var context = blocksCanvas.getContext('2d');
 		context.clearRect(0, 0, blocksCanvas.width, blocksCanvas.height);
 		
+		startTime = new Date();		 		 		
+		 
 		block_actions=0;
 		showButton('reset',1);
 		showButton('submit',1);
@@ -514,6 +535,8 @@
 		context.clearRect(0, 0, blocksCanvas.width, blocksCanvas.height);
 		
 		block_actions=1;
+		
+		startTime = new Date();
 		
 		loadTask(blocksCanvas,tasks[level].before);
 		loadTask(blocksCanvas,tasks[level].after,-1,300);
@@ -582,6 +605,12 @@
 		setVariables();
 	}
 	
+	function showAboutPopUp(val){	
+		showAbout=val;
+		document.getElementById('about1').style.display = showAbout;				
+		setVariables();
+	}
+	
 	//COOKIES
 	function agreeEthics(){
 		if(document.getElementById('agree').checked) { 
@@ -599,6 +628,7 @@
 			+"\n level: "+level
 			+"\n done: "+done
 			+"\n showInstructions: "+showInstructions
+			+"\n showAbout: "+showAbout			
 			+"\n block_actions: "+block_actions
 			+"\n currentAttempts: "+currentAttempts
 			+"\n cubes: "+ JSON.stringify(cubes)
@@ -609,7 +639,9 @@
 			+"\n current_task: "+current_task
 			+"\n creatingInstruction: "+creatingInstruction
 			+"\n newInstructions: "+newInstructions
-			+"\n instructions: "+instructions);
+			+"\n instructions: "+instructions	
+			+"\n answers: "+answers
+			);
 			
 	}
 	
@@ -617,7 +649,8 @@
 		localStorage.setItem("experiment", experiment.toString());
 		localStorage.setItem("level", level.toString());
 		localStorage.setItem("done", done.toString());
-		localStorage.setItem("showInstructions", showInstructions);		
+		localStorage.setItem("showInstructions", showInstructions);	
+		localStorage.setItem("showAbout", showAbout);			
 		localStorage.setItem("block_actions", block_actions.toString());
 		localStorage.setItem("currentAttempts", currentAttempts.toString());
 		localStorage.setItem("cubes", JSON.stringify(cubes));
@@ -629,6 +662,7 @@
 		localStorage.setItem("creatingInstruction", creatingInstruction);
 		localStorage.setItem("newInstructions", newInstructions);
 		localStorage.setItem("instructions", instructions);
+		localStorage.setItem("answers", JSON.stringify(answers));		
 		//document.cookie = "block_actions="+block_actions+";currentAttempts="+currentAttempts+";cubes="+JSON.stringify(cubes)+";task_cubes="+JSON.stringify(task_cubes)+";click_block="+click_block+";blocks_per_floor="+blocks_per_floor+";current_blocks="+current_blocks+";current_task="+current_task+";";		
 	}
 	
@@ -638,6 +672,7 @@
 		localStorage.setItem("level", "0");
 		localStorage.setItem("done", "0");
 		localStorage.setItem("showInstructions", "block");		
+		localStorage.setItem("showAbout", "block");				
 		localStorage.setItem("block_actions", "0");
 		localStorage.setItem("currentAttempts", "0");
 		localStorage.setItem("cubes", "[]");
@@ -649,6 +684,7 @@
 		localStorage.setItem("creatingInstruction", "");
 		localStorage.setItem("newInstructions", "");
 		localStorage.setItem("instructions", instructionsB);	
+		localStorage.setItem("answers", "[]");
 		location.reload();		
 	}
 	
@@ -661,6 +697,7 @@
 		level = parseInt(localStorage.getItem("level"));
 		done = parseInt(localStorage.getItem("done"));
 		showInstructions = localStorage.getItem("showInstructions");		
+		showAbout = localStorage.getItem("showAbout");				
 		block_actions = parseInt(localStorage.getItem("block_actions"));
 		currentAttempts = parseInt(localStorage.getItem("currentAttempts"));
 		cubes = JSON.parse(localStorage.getItem("cubes"));
@@ -672,6 +709,7 @@
 		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");		
 		newInstructions = localStorage.getItem("newInstructions").split(",");
 		instructions = localStorage.getItem("instructions").split(",");
+		answers = JSON.parse(localStorage.getItem("answers"));
 		
 		var x = document.URL
 		if(experiment==0 && x.indexOf("index")==-1){
@@ -695,8 +733,10 @@
 			window.open("done.html","_self");
 		}
 
-		if(experiment!=0)
+		if(experiment!=0){
 			showInstructionPopUp(showInstructions);
+			showAboutPopUp(showAbout);
+		}
 		//showVariables();
 		
 		/*var cookies = document.cookie.split(";");

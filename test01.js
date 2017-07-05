@@ -7,10 +7,12 @@ var tasks = [{"blocks":"1","before":"0","after":"1"},
 {"blocks":"","before":"123_120_100","after":"000"},
 {"blocks":"2","before":"123456_123406_123006_120006_100000","after":"123456_123406_123006_122006_100000"}]
 
+var startTime;
 var experiment = 0;
 var level = 0;
 var done = 0;
 var showInstructions = 'block';
+var showAbout = 'block';
 var block_actions = 0;
 var numberAttempts = 5;
 var currentAttempts = 0;
@@ -24,6 +26,7 @@ var current_blocks = '';//Participant solving and using blocks
 var current_task = '';//Participant solving task panel bottom right
 var creatingInstruction = [];//Creates the instruction for the next participant
 var newInstructions = [];//New instructions
+var answers = [];//Store time, attempts and result for each task as a JSON
 
 var instructions = [
 	"wiku shau netse", 	
@@ -40,6 +43,23 @@ var instructions = [
 	//remove all block
 	//Place orange block over green block
 instructionsB =	instructions;
+
+/*
+Participant
+task n: time, result, attempts
+newInstructions
+survey
+
+answers=[	
+		"participantinst":0,
+		"tasks":[
+			{"task":0,"result":1,"time":5,"Attempts":0},
+			{"task":1,"result":1,"time":15,"Attempts":3}],
+		"newinstructions":["we","wi","wi ku we"],
+		"survey":"123234"
+		];
+*/
+
 
 var tokens=[" ","a","e","i","o","u","wa","we","wi","wo","wu","ka","ke","ki","ko","ku","ta","te","ti","to","tu","sha","she","shi","sho","shu","ba","be","bi","bo","bu","na","ni","nu","ne","no","tsa","tsi","tsu","tse","tso"];
 
