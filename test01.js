@@ -1,11 +1,21 @@
 var b_size = 30;
 
 var tasks = [{"blocks":"1","before":"0","after":"1"},
+{"blocks":"3","before":"0","after":"3"},
 {"blocks":"12","before":"00","after":"21"},
-{"blocks":"","before":"1","after":"0"},
+{"blocks":"133","before":"000","after":"331"},
+{"blocks":"123","before":"000","after":"231"},
+{"blocks":"2","before":"3","after":"3_2"},
+{"blocks":"111","before":"333","after":"333_111"},
 {"blocks":"22","before":"10102","after":"10102_20200"},
-{"blocks":"","before":"123_120_100","after":"000"},
-{"blocks":"2","before":"123456_123406_123006_120006_100000","after":"123456_123406_123006_122006_100000"}]
+{"blocks":"2","before":"123456_123406_123006_120006_100000","after":"123456_123406_123006_122006_100000"},
+{"blocks":"122","before":"1104","after":"1114_2200"},
+{"blocks":"","before":"1","after":"0"},
+{"blocks":"","before":"11_02","after":"11"},
+{"blocks":"3","before":"334_330_300","after":"004"},
+{"blocks":"","before":"2224_1111","after":"0004"},
+{"blocks":"3","before":"111124","after":"000024_000030"}
+]
 
 var startTime;
 var experiment = 0;
@@ -29,19 +39,37 @@ var newInstructions = [];//New instructions
 var answers = [];//Store time, attempts and result for each task as a JSON
 
 var instructions = [
-	"wiku shau netse", 	
-	"wiku kuta netse koi shau netse",
-	"sheshi shau netse", 
-	"wiku koe netse neba ketsa shau netse",
-	"sheshi ketsa netse",
-	"wiku koe netse neba kuta netse"
+	"wiku shau", 	
+	"wiku kuta", 		
+	"wiku koe koi wiku shau",
+	"wiku kuta koi wiku kuta koi wiku shau",
+	"wiku koe koi wiku kuta koi wiku shau",
+	"wiku kuta neba koe",	
+	"wiku shau neba kuta",
+	"wiku koe neba shau",
+	"wiku koe neba kuta",
+	"wiku koe neba shau koi shau",
+	"sheshi shau",
+	"sheshi koe",
+	"sheshi kuta",	
+	"sheshi shau sheshi koe", 
+	"sheshi shau wiku kuta neba koe"
 	];
-	//place blue block
-	//remove blue block
-	//place green block and blue block
-	//place orange block over all blue block
-	//remove all block
-	//Place orange block over green block
+	//place blue
+	//place green	
+	//place orange then place blue 
+	//place green then place green then place blue
+	//place orange then place green then place blue	
+	//place green over orange	
+	//place blue over green
+	//place orange over blue
+	//Place orange over green
+	//place orange over blue then place blue
+	//remove blue	
+	//remove orange	
+	//remove green
+	//remove blue remove orange
+	//remove blue place green over orange
 instructionsB =	instructions;
 
 /*
