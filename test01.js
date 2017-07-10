@@ -1,6 +1,7 @@
 var b_size = 30;
 
-var tasks = [{"blocks":"1","before":"0","after":"1"},
+var tasks = [
+{"blocks":"1","before":"0","after":"1"},
 {"blocks":"3","before":"0","after":"3"},
 {"blocks":"12","before":"00","after":"21"},
 {"blocks":"133","before":"000","after":"331"},
@@ -29,8 +30,8 @@ var currentAttempts = 0;
 var cubes = [];//Save the possible blocks to place (Left panel)
 var task_cubes = [];//Save the blocks place in the task (right  bottom panel)
 var click_block = -1;//Save the last cube clicked (Left panel)
-var x_floor = 250;//coorditanes where the task space start
-var y_floor = 200;//coorditanes where the task space start
+var x_floor = 220;//coorditanes where the task space start
+var y_floor = 210;//coorditanes where the task space start
 var blocks_per_floor = 1;//Number of blocks that can be placed horitonzally
 var current_blocks = '';//Participant solving and using blocks 
 var current_task = '';//Participant solving task panel bottom right

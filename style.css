@@ -15,7 +15,7 @@ div {
 }
 
 #wrapper {
-    width: 800px;
+    width: 1000px;
     height:520px;
 
 	margin-left:0px;
@@ -45,7 +45,7 @@ div {
 #third {	
 	padding-left:5px;
     float:left;
-    width: 800px;
+    width: 1000px;
     height: 400px;
 }
 
@@ -53,7 +53,7 @@ div {
 	background-color:white;
 	position: absolute; 
 	border: 1px solid #ccc;
-	width:820px;
+	width:1020px;
 	height:550px;
 	padding-top: 5px;
     padding-right: 5px;
@@ -66,7 +66,7 @@ div {
 	position: absolute; 
 	top:370px; 
 	border: 1px solid #8c8c8c;
-	width:777px;
+	width:977px;
 	height:120px;
 	padding-top: 5px;
     padding-right: 5px;

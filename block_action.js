@@ -296,9 +296,9 @@
 		}
 		var context = canvas.getContext('2d');
 		if(left==0)
-			context.clearRect(b_size*5+left, 0, canvas.width-b_size*5, canvas.height);
+			context.clearRect(b_size*5+left, 0, canvas.width-b_size*5-x_floor, canvas.height);
 		else
-			context.clearRect(b_size*5+left, 0, canvas.width/2-b_size*5, canvas.height);
+			context.clearRect(b_size*5+left, 0, canvas.width/2-b_size*5-x_floor, canvas.height);
 		
 		cur_task = level;
 		floor_size=3;
@@ -350,7 +350,37 @@
 			}			
 			count++;
 		}
+		progress(canvas,-1);
+			
 		return cur_task;
+		
+	}
+	
+	function progress(canvas,current){
+		var context = canvas.getContext('2d');
+		for(var i = 0; i < tasks.length; i++){			
+			color='#404040';			
+			if(answers.length>i){
+				if(answers[i].result==1)
+					color='#00b300';
+				else
+					color='#e60000';
+			}
+			if(answers.length==i && current!=-1){
+				if(current==1)
+					color='#00b300';
+				else
+					color='#e60000';				
+			}
+			drawCube(context,
+					b_size*6+(i*b_size/5*4),
+					canvas.height,
+					b_size/3,
+					b_size/3,
+					b_size/3,
+					color)									
+			
+		}
 		
 	}
 	
@@ -361,6 +391,7 @@
 		
 		ctx.strokeStyle = '#e60000';
 		ctx.lineWidth = 10;
+		ctx.lineCap = 'round';
 		ctx.moveTo(x - 30, y - 30);
 		ctx.lineTo(x + 30, y + 30);
 
@@ -378,6 +409,27 @@
 		var ctx = canvas.getContext('2d');
 		ctx.beginPath();
 		
+		ctx.strokeStyle = '#00b300';
+		ctx.lineWidth = 10;
+		ctx.lineCap = 'round';
+		ctx.moveTo(x - 30, y);
+		ctx.lineTo(x - 15, y + 30);
+
+		ctx.moveTo(x - 15, y +30);
+		ctx.lineTo(x + 30, y - 30);
+		ctx.stroke();
+		ctx.lineWidth = 1;
+		
+		ctx.font = '14pt Calibri';
+		ctx.fillStyle = 'black';
+		ctx.fillText('Correct', x+40,y);		
+		
+	}
+	
+	function drawO1(canvas, x, y) {
+		var ctx = canvas.getContext('2d');
+		ctx.beginPath();
+		
 		var centerX = x;
 		var centerY = y;
 		var radius = 30;
@@ -392,6 +444,7 @@
 		ctx.font = '14pt Calibri';
 		ctx.fillStyle = 'black';
 		ctx.fillText('Correct', x+40,y);
+		
 	}
 
 	function showButton(element,status) {
@@ -417,7 +470,7 @@
 		if(tasks[level].after==current_task){				
 			//writeMessage(blocksCanvas, 'Correct!');
 			drawO(blocksCanvas,250,300);
-			writeMessage(blocksCanvas,'');			
+			writeMessage(blocksCanvas,'');				
 		}else{
 			//writeMessage(blocksCanvas, 'Sorry its incorrect.');						
 			drawX(blocksCanvas,250,300);
@@ -425,7 +478,7 @@
 		}
 		//showVariables();
 		setVariables();	
-		if(currentAttempts>=numberAttempts || tasks[level].after==current_task){
+		if(currentAttempts>=numberAttempts || tasks[level].after==current_task){			
 			blockAndNext();
 		}		
 	}
@@ -461,16 +514,27 @@
 	function blockAndNext(){
 		block_actions=1;
 		done=1;
-		
+				
 		if(tasks[level].after!=current_task){
-			loadTask(blocksCanvas,tasks[level].after,-1,300);
-		
+			loadTask(blocksCanvas,tasks[level].before,-1,270);
+			loadTask(blocksCanvas,tasks[level].after,-1,530);					
+			
 			var context = blocksCanvas.getContext('2d');        
 			context.font = '14pt Calibri';
 			context.fillStyle = 'black';
-			context.fillText('Correct', 455,210);			
-			context.fillText('pattern:', 455,225);
-		}		
+			
+			context.fillText('Your last', 160,230);			
+			context.fillText('pattern:', 160,245);
+			
+			context.fillText('Start', 430,230);			
+			context.fillText('pattern:', 430,245);
+			
+			context.fillText('Correct', 690,230);	
+			context.fillText('pattern:', 690,245);			
+			
+			progress(blocksCanvas,0);		
+		}else
+			progress(blocksCanvas,1);		
 		
 		showButton('reset',0);
 		showButton('submit',0);
