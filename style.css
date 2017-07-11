@@ -16,7 +16,7 @@ div {
 
 #wrapper {
     width: 1000px;
-    height:820px;
+    height:520px;
 
 	margin-left:0px;
 	margin-top:20px;
@@ -54,7 +54,7 @@ div {
 	position: absolute; 
 	border: 1px solid #ccc;
 	width:1020px;
-	height:550px;
+	height:750px;
 	padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
