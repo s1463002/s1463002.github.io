@@ -32,7 +32,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				Task:</span >
 				<div id="blocks" style="width:100%; height:100%;" >				
-					<canvas id="blocksCanvas" width="1000" height="400"></canvas>					
+					<canvas id="blocksCanvas" width="1000" height="600"></canvas>					
 					<button id="reset" style="cursor:pointer;position: absolute; top:150px; left:50%" onclick="loadAllCanvas();">Restart level</button>
 					<button id="submit" style="cursor:pointer;position: absolute; top:430px; left:50%;" onclick="submitAnswer();">Submit</button>
 					<button id="next" style="cursor:pointer;position: absolute; top:450px; left:50%;" onclick="nextLevel();">Next</button>				
@@ -43,13 +43,14 @@
 
 			<div class="instructions" id="instructions" align="left" style="background-color:#e6e6e6;" >
 				<div id='close' style="cursor:pointer;" onclick="showInstructionPopUp('none');">x</div>		
-				<h3>Part 1: Read the following instructions for the game:</h3>
+				<h3>Instructions for part 1</h3>
 				<br/>
+				At the top of the page, you will see instructions in the blockworld language. On the right side of the screen, there will be a starting pattern of blocks that you need to modify somehow. On the left side of the screen is your workspace, which contains blocks you can use, and you can also drag blocks from the starting pattern into it. 
 				<img src="instruction.gif" style="cursor:not-allowed;">
-				<div style="position: absolute;top:25px;left:120px;padding:30px;" >					
+				<div style="position: absolute;top:25px;left:120px;padding:30px;" >
 					<ol>
-						<li>Read the instruction and try to understand it <strong>"wiku shau netse"</strong></li>
-						<li><strong>Click and drag</strong> the blocks to solve the given instruction. 
+						<li>Read the instructions at the top of the screen. In this example, they are <strong>"wiku shau netse"</strong>.</li>
+						<li><strong>Click and drag</strong> the blocks to arrange the pattern according to the instructions. 
 						The yellow floor marks the spot where you can place the block. Additionally, you can remove any block from the task.</li>
 						<li>Press <strong>submit</strong> button. If the task is correct press <strong>next</strong>. If the task is incorrect try again!</li>
 						<li>You have a number of attempts on each task shown in the left corner.</li>
@@ -77,19 +78,20 @@
 				  <center><img width="10%" height="10%" src="blocks.png"></center>
 				  You have entered blockworld, inhabited by people whose only interest is in arranging colored blocks into patterns.
 
-				  <p>Your task is to learn the blockworld language, use it to arrange blocks, and finally create new instructions in the langauge. It’s a difficult task, but we think you’re up to it!
+				  <p>Your goal is to learn the blockworld language, use it to arrange blocks, and create new instructions in the language. It’s a difficult challenge, but we think you’re up to it!
 
-				  <h2>Phase 1</h2>
+				  <h3>Part 1</h3>
 				  <p>Your goal is to learn the blockworld language, and to follow instructions in the language to arrange blocks.							
-				  <p>You will see several tasks. Each task includes a instructions in the blocksworld language, a starting pattern of blocks that you need to modify, and a workspace that you can take blocks from or put them into. You will have a few chances to find the right pattern. If you run out of chances, you'll be shown the right one and move to the next task.
+				  <p>You will see several tasks. Each task includes instructions in the blocksworld language, a starting pattern of blocks that you need to modify, and a workspace that you can take blocks from or put them into. You will have a few chances to find the right pattern. If you run out of chances, you'll be shown the correct pattern and move to the next task.
 
-				  <h2>Phase 2</h2>
-				  You will use what you have learned to create instructions for another person. You will see the starting pattern, the pattern the person must create, and the blocks in the person's workspace. You will have a special keyboard to write instructions in the blocksworld langauge, using the sounds the language is built out of.
+				  <h3>Part 2</h3>
+				  You will use what you have learned to create instructions for another person. You will see their starting pattern, the pattern they must create, and the blocks in their workspace.
+				  You will have a special keyboard to write instructions in the blocksworld langauge, using the syllables the language is built out of.
 				  <p>Another person might have to use your instructions, so choose them carefully!</p>
 
 				  <p>There are several words to learn and it might be difficult to remember everything. Just do your best and know that it's ok to make mistakes. 
 				  
-					<p><span style="color:red;font-size:16px;">Warning: </span>Please don't use the back button to try to go back to an earlier task. Just do the best you can on each task.
+					<p><span style="color:red;font-size:16px;">Note: </span>Please don't use the back button to try to go back to an earlier task. Just do the best you can on each task.
 					<center><button style="cursor:pointer;" onclick="showAboutPopUp('none');">Next</button></center>
 				</div>
 			</div>
