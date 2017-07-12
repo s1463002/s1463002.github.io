@@ -7,17 +7,29 @@
     <link rel="stylesheet" type="text/css" href=style.css>	 	
 	<link rel="icon" type="image/png" href="block.png">
 	
+	<script type="text/javascript" src="json/tasks.json"></script>	
+	<script type="text/javascript" src="json/language.json"></script>	
 	<script src="block_script.js"></script>	
 	<script src="config.js"></script>
-	<script src="test01.js"></script>
   </head>
   <body> 	
-	<center>
-		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">		
-			<div id="third">
-				<h3>Survey</h3>
-			</div>		
-		</div>		
+	<center>		
+		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">
+			<div id="first">				
+			</div>
+			<div id="second">
+				<h3 id="instruction">
+						Survey
+				</h3>
+			</div>
+			<div id="third">				
+				Questions
+				
+				<center><button style="cursor:pointer;" onclick="submitSurvey();">Submit</button></center>
+			</div>	
+
+
+		</div>				
 	</center>
 	
 	<button id="resetVariables" style="cursor:pointer;position: absolute; top:0; left:0px;" onclick="resetVariables();">resetVariables</button>
@@ -25,8 +37,7 @@
 	<script src="block_action.js"></script>	
 	<script>
 		getVariables();
-		loadAllCanvas2();
-		createKeyboard();
+		//alert(JSON.stringify(tasks));
 	</script>
   </body>
 </html>

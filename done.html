@@ -1,17 +1,43 @@
 <!doctype html>
 <html lang="en">
   <head>
-	<!-- https://s1463002.github.io/ -->
     <meta charset="UTF-8">
     <title>Web Game For Studying Language Evolution</title>
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href=style.css>	 
-	<link rel="icon" type="image/png" href="block.png">	
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href=style.css>	 	
+	<link rel="icon" type="image/png" href="block.png">
+	
+	<script type="text/javascript" src="json/tasks.json"></script>	
+	<script type="text/javascript" src="json/language.json"></script>	
 	<script src="block_script.js"></script>	
-	<script src="block_action.js"></script>	
+	<script src="config.js"></script>
   </head>
-  <body>  		
-	Done
+  <body> 	
+	<center>		
+		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">
+			<div id="first">				
+			</div>
+			<div id="second">
+				
+			</div>
+			<div id="third">				
+				<center>
+				<h3 id="instruction">
+						Thank you for participating.
+				</h3>
+				You have completed this game successfully!</center>
+			</div>	
+
+
+		</div>				
+	</center>
+	
+	<button id="resetVariables" style="cursor:pointer;position: absolute; top:0; left:0px;" onclick="resetVariables();">resetVariables</button>
+	
+	<script src="block_action.js"></script>	
+	<script>
+		getVariables();
+	</script>
   </body>
 </html>
 <!--

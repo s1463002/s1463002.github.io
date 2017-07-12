@@ -636,6 +636,12 @@
 			window.open("experiment2.html","_self");
 		}		
 	}
+	
+	function submitSurvey(){			
+		experiment=4;
+		setVariables();			
+		window.open("done.html","_self");
+	}
 	////////RUN LOAD/////////////////////////		
 	function loadAllCanvas(){			
 		var context = blocksCanvas.getContext('2d');
@@ -830,7 +836,7 @@
 		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");			
 		tasks = JSON.parse(localStorage.getItem("tasks"));
 		answers = JSON.parse(localStorage.getItem("answers"));
-		
+
 		var x = document.URL
 		if(experiment==0 && x.indexOf("index")==-1){
 			window.open("index.html","_self");
@@ -853,7 +859,7 @@
 			window.open("done.html","_self");
 		}
 
-		if(experiment!=0){
+		if(experiment!=0 && experiment<3){
 			showInstructionPopUp(showInstructions);
 			showAboutPopUp(showAbout);
 		}
