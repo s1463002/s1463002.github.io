@@ -1,0 +1,17 @@
+[{"id":"1","conf":[
+{"blocks":"1","before":"0","after":["1"],"instruction":"add blue"},
+{"blocks":"3","before":"00","after":["03","30"],"instruction":"add orange"},
+{"blocks":"12","before":"00","after":["21","12"],"instruction":"add orange add blue"},
+{"blocks":"133","before":"000","after":["331","313","133"],"instruction":"add orange add orange add blue"},
+{"blocks":"123","before":"000","after":["231"],"instruction":"add orange add orange add blue"},
+{"blocks":"2","before":"3","after":["3_2"],"instruction":"add orange on blue"},
+{"blocks":"111","before":"333","after":["333_111"],"instruction":"add blue on all orange"},
+{"blocks":"22","before":"10102","after":["10102_20200"],"instruction":"add orange on blue"},
+{"blocks":"2","before":"123456_123406_123006_120006_100000","after":["123456_123406_123006_122006_100000"],"instruction":"add orange on orange"},
+{"blocks":"122","before":"1104","after":["1114_2200"],"instruction":"add orange on blue add blue"},
+{"blocks":"","before":"1","after":["0"],"instruction":"remove blue"},
+{"blocks":"","before":"11_02","after":["11"],"instruction":"remove orange"},
+{"blocks":"3","before":"334_330_300","after":["004"],"instruction":"remove all orange"},
+{"blocks":"","before":"2224_1111","after":["0004"],"instruction":"remove blue remove orange"},
+{"blocks":"3","before":"111124","after":["000024_000030"],"instruction":"remove all blue add orange on orange"}]
+}]

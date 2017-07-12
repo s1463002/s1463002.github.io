@@ -64,7 +64,7 @@
 		loadBlocks(blocksCanvas,current_blocks,selected,clickedX,clickedY);
 		//writeMessage(blocksCanvas, message);
 		writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');
-		if(isShowButton('submit')==0 && tasks[level].after!=current_task)
+		if(isShowButton('submit')==0 && tasks[0].conf[level].after!=current_task)
 			drawX(blocksCanvas,250,300);
     }, false);
 	
@@ -213,7 +213,7 @@
 	///////////////////////////////////////////////
 		
 	function loadInstruction() {
-		document.getElementById("instruction").innerHTML = instructions[level];
+		document.getElementById("instruction").innerHTML = tasks[0].conf[level].instruction;
 	}
 		
 		
@@ -287,7 +287,7 @@
 		}			
 	}
 
-	function loadTask(canvas,level, selected, left){
+	function loadTask(canvas,lvl, selected, left){
 		if(selected === undefined) {
 			selected = -1;
 		}
@@ -300,7 +300,7 @@
 		else
 			context.clearRect(b_size*5+left, 0, canvas.width/2-b_size*5-x_floor, canvas.height);
 		
-		cur_task = level;
+		cur_task = lvl;
 		floor_size=3;
 		floor_number = 0;
 		count=0;
@@ -358,7 +358,7 @@
 	
 	function progress(canvas,current){
 		var context = canvas.getContext('2d');
-		for(var i = 0; i < tasks.length; i++){			
+		for(var i = 0; i < tasks[0].conf.length; i++){			
 			color='#404040';			
 			if(answers.length>i){
 				if(answers[i].result==1)
@@ -466,8 +466,16 @@
 	
 	function submitAnswer(){			
 		showButton('submit',0);
-		currentAttempts++;			
-		if(tasks[level].after==current_task){				
+		currentAttempts++;		
+		var result = false;
+		for(var i=0;i<tasks[0].conf[level].after.length;i++){
+			if(tasks[0].conf[level].after[i]==current_task){
+				result=true;
+				break;
+			}
+				
+		}
+		if(result){				
 			//writeMessage(blocksCanvas, 'Correct!');
 			drawO(blocksCanvas,250,300);
 			writeMessage(blocksCanvas,'');				
@@ -478,7 +486,7 @@
 		}
 		//showVariables();
 		setVariables();	
-		if(currentAttempts>=numberAttempts || tasks[level].after==current_task){			
+		if(currentAttempts>=numberAttempts || result){			
 			blockAndNext();
 		}		
 	}
@@ -488,36 +496,64 @@
 			alert("You need to write an instruction in order to submit.")
 			return;
 		}
-			
-		level++;
-		
+							
 		var string = "";
 		for (var i = 0; i < creatingInstruction.length; i++) {
 			string+=creatingInstruction[i];
 		}
-		newInstructions.push(string.trim());
+		tasks[0].conf[level].instruction=string.trim();
 					
-		if(level<tasks.length){			
+		level++;
+		
+		if(level<tasks[0].conf.length){			
 			loadAllCanvas2();
 			setVariables();	
 			//showVariables();
 		}else{
-			level=tasks.length-1;
+			level=tasks[0].conf.length-1;
 			experiment=3;
 			setVariables();	
-			//instructions = newInstructions;
 			//window.open("experiment1.html","_self");			
 			window.open("survey.html","_self");
 		}	
+	}
+	  
+	var index=0;
+	function loop(){
+		if(index>=tasks[0].conf[level].after.length)
+			index=0;
+		loadTask(blocksCanvas,tasks[0].conf[level].after[index],-1,530);
+		index++;
+	
+		var context = blocksCanvas.getContext('2d');        
+		context.font = '14pt Calibri';
+		context.fillStyle = 'black';
+
+			
+		context.fillText('Correct', 690,230);	
+		context.fillText('pattern:', 690,245);	
 	}
 	
 	function blockAndNext(){
 		block_actions=1;
 		done=1;
+			
+		saveTask			();
+		
+		var result = false;
+		for(var i=0;i<tasks[0].conf[level].after.length;i++){
+			if(tasks[0].conf[level].after[i]==current_task){
+				result=true;
+				break;
+			}
 				
-		if(tasks[level].after!=current_task){
-			loadTask(blocksCanvas,tasks[level].before,-1,270);
-			loadTask(blocksCanvas,tasks[level].after,-1,530);					
+		}
+		if(!result){
+			loadTask(blocksCanvas,tasks[0].conf[level].before,-1,270);
+			
+			// request new frame
+			loop();
+			animation = setInterval(loop,1000);				
 			
 			var context = blocksCanvas.getContext('2d');        
 			context.font = '14pt Calibri';
@@ -527,30 +563,45 @@
 			context.fillText('pattern:', 160,245);
 			
 			context.fillText('Start', 430,230);			
-			context.fillText('pattern:', 430,245);
+			context.fillText('pattern:', 430,245);		
 			
-			context.fillText('Correct', 690,230);	
-			context.fillText('pattern:', 690,245);			
-			
-			progress(blocksCanvas,0);		
-		}else
-			progress(blocksCanvas,1);		
+			//progress(blocksCanvas,0);		
+		}//else
+		progress(blocksCanvas,-1);		
 		
+		if(level==tasks[0].conf.length-1){
+			var context = blocksCanvas.getContext('2d');        
+			context.font = '18pt Calibri';
+			context.fillStyle = '#002966';
+			
+			context.fillText('Good job!', b_size*6,blocksCanvas.height-45);			
+			context.fillText('Now for part 2!', b_size*6,blocksCanvas.height-25);	
+		}
 		showButton('reset',0);
 		showButton('submit',0);
 		showButton('next',1);
 		setVariables();			
 	}
 	
-	function nextLevel(){
+	function saveTask(){
 		var timeDiff = new Date() - startTime;
 		timeDiff /= 1000;
 		// get seconds (Original had 'round' which incorrectly counts 0:28, 0:29, 1:30 ... 1:59, 1:0)
 		var task_json = {};
 		var seconds = Math.round(timeDiff % 60);
+		task_json.idParent=tasks[0].id;
 		task_json.task=level;
 		task_json.time=seconds;
-		if(tasks[level].after==current_task){
+		
+		var result = false;
+		for(var i=0;i<tasks[0].conf[level].after.length;i++){
+			if(tasks[0].conf[level].after[i]==current_task){
+				result=true;
+				break;
+			}
+				
+		}
+		if(result){
 			task_json.result=1;	
 		}else{
 			task_json.result=0;
@@ -561,10 +612,19 @@
 		answers.push(task_json);
 		//alert(JSON.stringify(answers))
 		
+	}
+	
+	function nextLevel(){
+		try{
+			clearInterval(animation);
+		}catch(Exception){}			
+		
+		//saveTask();
+		
 		level++;
 		done=0;
 		currentAttempts = 0;
-		if(level<tasks.length){			
+		if(level<tasks[0].conf.length){			
 			setVariables();	
 			loadAllCanvas();
 		}else{
@@ -577,7 +637,7 @@
 		}		
 	}
 	////////RUN LOAD/////////////////////////		
-	function loadAllCanvas(){	
+	function loadAllCanvas(){			
 		var context = blocksCanvas.getContext('2d');
 		context.clearRect(0, 0, blocksCanvas.width, blocksCanvas.height);
 		
@@ -588,8 +648,8 @@
 		showButton('submit',1);
 		showButton('next',0);
 		loadInstruction();
-		loadBlocks(blocksCanvas,tasks[level].blocks);
-		current_task = loadTask(blocksCanvas,tasks[level].before);		
+		loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
+		current_task = loadTask(blocksCanvas,tasks[0].conf[level].before);		
 		writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');		
 	}	
 	
@@ -602,15 +662,15 @@
 		
 		startTime = new Date();
 		
-		loadTask(blocksCanvas,tasks[level].before);
-		loadTask(blocksCanvas,tasks[level].after,-1,300);
-		loadBlocks(blocksCanvas,tasks[level].blocks);
+		loadTask(blocksCanvas,tasks[0].conf[level].before);
+		loadTask(blocksCanvas,tasks[0].conf[level].after[0],-1,300);
+		loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
 		
 		var context = blocksCanvas.getContext('2d');        
 		context.font = '14pt Calibri';
 		context.fillStyle = 'black';
-		context.fillText('Before:', 170,210);			
-		context.fillText('After:', 470,210);		
+		context.fillText('Before:', 160,220);			
+		context.fillText('After:', 460,220);		
 		
 	}	
 	
@@ -702,8 +762,7 @@
 			+"\n current_blocks: "+current_blocks
 			+"\n current_task: "+current_task
 			+"\n creatingInstruction: "+creatingInstruction
-			+"\n newInstructions: "+newInstructions
-			+"\n instructions: "+instructions	
+			+"\n tasks: "+JSON.stringify(tasks)
 			+"\n answers: "+answers
 			);
 			
@@ -724,8 +783,7 @@
 		localStorage.setItem("current_blocks", current_blocks);
 		localStorage.setItem("current_task", current_task);
 		localStorage.setItem("creatingInstruction", creatingInstruction);
-		localStorage.setItem("newInstructions", newInstructions);
-		localStorage.setItem("instructions", instructions);
+		localStorage.setItem("tasks",  JSON.stringify(tasks));
 		localStorage.setItem("answers", JSON.stringify(answers));		
 		//document.cookie = "block_actions="+block_actions+";currentAttempts="+currentAttempts+";cubes="+JSON.stringify(cubes)+";task_cubes="+JSON.stringify(task_cubes)+";click_block="+click_block+";blocks_per_floor="+blocks_per_floor+";current_blocks="+current_blocks+";current_task="+current_task+";";		
 	}
@@ -746,8 +804,7 @@
 		localStorage.setItem("current_blocks", "");
 		localStorage.setItem("current_task", "");
 		localStorage.setItem("creatingInstruction", "");
-		localStorage.setItem("newInstructions", "");
-		localStorage.setItem("instructions", instructionsB);	
+		localStorage.setItem("tasks", JSON.stringify(tasksB));	
 		localStorage.setItem("answers", "[]");
 		location.reload();		
 	}
@@ -770,9 +827,8 @@
 		blocks_per_floor = parseInt(localStorage.getItem("blocks_per_floor"));
 		current_blocks = localStorage.getItem("current_blocks");
 		current_task = localStorage.getItem("current_task");
-		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");		
-		newInstructions = localStorage.getItem("newInstructions").split(",");
-		instructions = localStorage.getItem("instructions").split(",");
+		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");			
+		tasks = JSON.parse(localStorage.getItem("tasks"));
 		answers = JSON.parse(localStorage.getItem("answers"));
 		
 		var x = document.URL
@@ -814,5 +870,7 @@
 		current_task = cookies[7];*/
 	}
 
+	
+	
 	//loadAllCanvas();
 	
