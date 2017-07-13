@@ -296,9 +296,9 @@
 		}
 		var context = canvas.getContext('2d');
 		if(left==0)
-			context.clearRect(b_size*5, 0, 300, canvas.height);
+			context.clearRect(b_size*5, 0, canvas.width, canvas.height);
 		else
-			context.clearRect(b_size*5+left, 0, 300, canvas.height);
+			context.clearRect(b_size*5+left, 0, canvas.width, canvas.height);
 		
 		cur_task = lvl;
 		floor_size=3;
