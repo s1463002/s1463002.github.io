@@ -538,7 +538,7 @@
 		block_actions=1;
 		done=1;
 			
-		saveTask			();
+		saveTask();
 		
 		var result = false;
 		for(var i=0;i<tasks[0].conf[level].after.length;i++){
@@ -550,7 +550,7 @@
 		}
 		if(!result){
 			loadTask(blocksCanvas,tasks[0].conf[level].before,-1,pattern_separation);
-			
+			loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
 			// request new frame
 			loop();
 			animation = setInterval(loop,1000);				
