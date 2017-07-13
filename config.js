@@ -1,6 +1,12 @@
 //Configuration variables and Init variables
 loadTranslations();
+
+var numberAttempts = 5;
+var saveInServer = true;
+var downloadJSON = true;
+
 var b_size = 30;
+var pattern_separation = 270;//Separate patters last attempt, before and after when all of them in screen
 var startTime;
 var experiment = 0;
 var level = 0;
@@ -8,7 +14,6 @@ var done = 0;
 var showInstructions = 'block';
 var showAbout = 'block';
 var block_actions = 0;
-var numberAttempts = 5;
 var currentAttempts = 0;
 var cubes = [];//Save the possible blocks to place (Left panel)
 var task_cubes = [];//Save the blocks place in the task (right  bottom panel)
@@ -20,6 +25,7 @@ var current_blocks = '';//Participant solving and using blocks
 var current_task = '';//Participant solving task panel bottom right
 var creatingInstruction = [];//Creates the instruction for the next participant
 var answers = [];//Store time, attempts and result for each task as a JSON
+var survey = [];//Store time, attempts and result for each task as a JSON
 tasksB = tasks;//To restart to the begining.
 
 function loadTranslations(){		

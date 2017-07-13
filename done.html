@@ -11,24 +11,112 @@
 	<script type="text/javascript" src="json/language.json"></script>	
 	<script src="block_script.js"></script>	
 	<script src="config.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChartTime);
+
+      function drawChartTime() {
+		var time = [
+			['Task', 'Seconds']
+		];
+		var success = [
+			['Task', 'Result']
+		];
+		var attempts = [
+			['Attempts', 'Tasks']
+		];
+		numAttempts = []		
+		taskAttempts = []
+		for(var i=0;i<numberAttempts;i++){
+			numAttempts.push(0);
+			taskAttempts.push("");
+		}		
+
+		totalTime = 0;
+		totalAttempts = 0;
+		correct = 0;
+		incorrect = 0;		
+		for(var i=0;i<answers.length;i++){
+			var arr = ['Task '+(answers[i].task+1),answers[i].time];
+			totalTime+=answers[i].time;
+			time.push(arr);
+			
+			numAttempts[answers[i].attempts-1]+=1;
+			if(taskAttempts[answers[i].attempts-1]!="")taskAttempts[answers[i].attempts-1]+=", ";
+			taskAttempts[answers[i].attempts-1]+=(answers[i].task+1);			
+			totalAttempts+= answers[i].attempts;
+			
+			if(answers[i].result==1) correct++;
+			else incorrect++;
+		}		
+		for(var i=0;i<numAttempts.length;i++){
+			attempts.push([(i+1)+' attempt: Task '+taskAttempts[i],numAttempts[i]]);
+		}
+		
+		var duration = '';
+		if(totalTime<60){
+			duration = totalTime+' seconds';
+		}else{
+			duration = Math.round(totalTime/60)+' minutes';
+		}
+		success.push(["Correct",correct]);
+		success.push(["Incorrect",incorrect]);
+		
+        var data = google.visualization.arrayToDataTable(time);
+        var options = {
+          title: 'Time on each task in seconds / Total: '+duration,
+		  legend: 'none',
+		  is3D: true,
+		  colors: ['#0061FF', '#89909B'],
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechartTime'));
+        chart.draw(data, options);
+		
+		var data1 = google.visualization.arrayToDataTable(success);
+        var options1 = {
+          title: 'Success tasks',
+		  is3D: true,
+		  legend: 'none',
+		  pieSliceText: 'label',		  
+        };
+        var chart1 = new google.visualization.PieChart(document.getElementById('piechartSuccess'));
+        chart1.draw(data1, options1);
+		
+		var data2 = google.visualization.arrayToDataTable(attempts);
+        var options2 = {
+          title: 'Attempts per task / Total: '+totalAttempts,
+		   is3D: true,
+        };
+        var chart2 = new google.visualization.PieChart(document.getElementById('piechartAttempts'));
+        chart2.draw(data2, options2);
+      }
+    </script>
   </head>
   <body> 	
 	<center>		
-		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">
+		<div id="wrapper" style="border: 1px solid #bfbfbf;background-color:#ffffff;" align="left">
 			<div id="first">				
 			</div>
 			<div id="second">
-				
+				<center>
+					<h3 id="instruction">
+							Thank you for participating.
+					</h3>
+					You have completed this game successfully!<br/>					
+				</center>
 			</div>
 			<div id="third">				
-				<center>
-				<h3 id="instruction">
-						Thank you for participating.
-				</h3>
-				You have completed this game successfully!</center>
+				
+				<h3>Part 1 results</h3>
+				<div>
+					<div id="piechartTime" style="background-color:#e6e6e6;width: 350px;height:370px;float:left; display:inline"></div>				
+					<div id="piechartAttempts" style="background-color:#e6e6e6;width: 350px;height:370px;float:left; display:inline"></div>
+					<div id="piechartSuccess" style="background-color:#e6e6e6;width: 280px;height:370px;float:left; display:inline"></div>
+				</div>
+				<span >Charts show the time you spent on each task in seconds, how many attempts you required on each task, and how many tasks you answer correct.</span>
 			</div>	
-
-
+			
 		</div>				
 	</center>
 	
@@ -40,12 +128,3 @@
 	</script>
   </body>
 </html>
-<!--
-Copyright (c) 2017 by Ash Kyd (http://codepen.io/AshKyd/pen/JYXEpL)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--->

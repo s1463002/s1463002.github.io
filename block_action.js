@@ -296,9 +296,9 @@
 		}
 		var context = canvas.getContext('2d');
 		if(left==0)
-			context.clearRect(b_size*5+left, 0, canvas.width-b_size*5-x_floor, canvas.height);
+			context.clearRect(b_size*5, 0, 300, canvas.height);
 		else
-			context.clearRect(b_size*5+left, 0, canvas.width/2-b_size*5-x_floor, canvas.height);
+			context.clearRect(b_size*5+left, 0, 300, canvas.height);
 		
 		cur_task = lvl;
 		floor_size=3;
@@ -522,7 +522,7 @@
 	function loop(){
 		if(index>=tasks[0].conf[level].after.length)
 			index=0;
-		loadTask(blocksCanvas,tasks[0].conf[level].after[index],-1,530);
+		loadTask(blocksCanvas,tasks[0].conf[level].after[index],-1,pattern_separation*2);
 		index++;
 	
 		var context = blocksCanvas.getContext('2d');        
@@ -549,7 +549,7 @@
 				
 		}
 		if(!result){
-			loadTask(blocksCanvas,tasks[0].conf[level].before,-1,270);
+			loadTask(blocksCanvas,tasks[0].conf[level].before,-1,pattern_separation);
 			
 			// request new frame
 			loop();
@@ -637,11 +637,61 @@
 		}		
 	}
 	
-	function submitSurvey(){			
+	function escapeRegExp(str) {
+		return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+	}
+	function replaceAll(str, find, replace) {
+		return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+	}
+	
+	function removeSpecialCharacters(str){		
+		str = replaceAll(str,'"','´');
+		str = replaceAll(str,"'","´");
+		return str;
+	}
+
+	function submitSurvey(){	
+		survey=[];
+		survey.push("gender:"+document.getElementById("gender").value);
+		survey.push("age:"+document.getElementById("age").value);
+		survey.push("school:"+document.getElementById("school").value);
+		survey.push("enjoy:"+document.getElementById("enjoy").value);
+		survey.push("difficult:"+document.getElementById("difficult").value);
+		survey.push("fedback:"+removeSpecialCharacters(document.getElementById("fedback").value));
+		for(var i=1;i<words.length;i++){
+			survey.push(words[i].word+"("+getTranslation(words[i].word)+"):"+removeSpecialCharacters(document.getElementById("word"+i).value));
+		}
+						
+		var game_json = {};
+		game_json.answers = answers;
+		game_json.survey = survey;
+		
+		//alert(JSON.stringify(game_json))
+						
+		if(saveInServer){
+			//ChunkWs("somata.inf.ed.ac.uk/chunks/get?experimentId=shrdlevo",JSON.stringify(game_json));			
+		}
+		if(downloadJSON){
+			download("shrdlevo.txt",JSON.stringify(game_json));
+		}
 		experiment=4;
-		setVariables();			
+		setVariables();	
 		window.open("done.html","_self");
 	}
+	
+	function download(filename, text) {
+		var element = document.createElement('a');
+		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+		element.setAttribute('download', filename);
+
+		element.style.display = 'none';
+		document.body.appendChild(element);
+
+		element.click();
+
+		document.body.removeChild(element);
+	}
+
 	////////RUN LOAD/////////////////////////		
 	function loadAllCanvas(){			
 		var context = blocksCanvas.getContext('2d');
@@ -669,14 +719,14 @@
 		startTime = new Date();
 		
 		loadTask(blocksCanvas,tasks[0].conf[level].before);
-		loadTask(blocksCanvas,tasks[0].conf[level].after[0],-1,300);
+		loadTask(blocksCanvas,tasks[0].conf[level].after[0],-1,pattern_separation);
 		loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
 		
 		var context = blocksCanvas.getContext('2d');        
 		context.font = '14pt Calibri';
 		context.fillStyle = 'black';
-		context.fillText('Before:', 160,220);			
-		context.fillText('After:', 460,220);		
+		context.fillText('Before:', 160,230);			
+		context.fillText('After:', 460,230);		
 		
 	}	
 	
@@ -730,6 +780,9 @@
 	}	
 	
 	function showInstructionPopUp(val){		
+		if(level==0){
+			startTime = new Date();	
+		}
 		showInstructions=val;
 		document.getElementById('instructions').style.display = showInstructions;				
 		setVariables();
@@ -875,8 +928,6 @@
 		current_blocks = cookies[6];
 		current_task = cookies[7];*/
 	}
-
-	
 	
 	//loadAllCanvas();
 	
