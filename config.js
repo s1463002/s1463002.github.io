@@ -1,6 +1,6 @@
 //Configuration variables and Init variables
 loadTranslations();
-var version=1.33;
+var version=1.34;
 var versionB=version;
 
 var numberAttempts = 5;

@@ -674,7 +674,7 @@
 			//ChunkWs("somata.inf.ed.ac.uk/chunks/get?experimentId=shrdlevo",JSON.stringify(game_json));			
 		}
 		if(downloadJSON){
-			download("shrdlevo.txt",JSON.stringify(game_json));
+			download("shrdlevo.json",JSON.stringify(game_json));
 		}
 		experiment=4;
 		setVariables();	
