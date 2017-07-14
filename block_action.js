@@ -670,8 +670,14 @@
 		
 		//alert(JSON.stringify(game_json))						
 		if(saveInServer){
-			try{
-				ChunkWs("https://somata.inf.ed.ac.uk/chunks/ws?experimentId=shrdlevo&sessionId="+sessionID,JSON.stringify(game_json));			
+		    try{
+			var chunker = new ChunkWs("ws://somata.inf.ed.ac.uk/chunks/ws",function(a,b,c) {
+			    console.log("Chunker callback, args: a=" + a ", b=" + b + ", c=" + JSON.stringify(c));
+			    if(b==true) {
+				throw "Error in sending websocket message, response was " + JSON.stringify(c);
+			    }
+			});
+			  chunker.sendChunk(game_json);			
 			}catch(e){
 				downloadJSON=true;
 				alert(e);
