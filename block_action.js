@@ -681,31 +681,34 @@
 		window.open("done.html","_self");
 	}
 	
-	function download(filename, text) {
-		var isIE = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+	function download(fileNameToSaveAs, textToWrite) {
+	  /* Saves a text string as a blob file*/  
+	  var ie = navigator.userAgent.match(/MSIE\s([\d.]+)/),
+		  ie11 = navigator.userAgent.match(/Trident\/7.0/) && navigator.userAgent.match(/rv:11/),
+		  ieEDGE = navigator.userAgent.match(/Edge/g),
+		  ieVer=(ie ? ie[1] : (ie11 ? 11 : (ieEDGE ? 12 : -1)));
 
-		if(isIE){
-			var ifd = document.createElement('a').contentDocument;
-			//var ifd = document.getElementById('a').contentDocument;
-			ifd.open('text/plain', 'replace');
-			ifd.write(text);
-			ifd.close();
-			ifd.execCommand('SaveAs', true, filename);
-		}
-		else{
-			var element = document.createElement('a');
-			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-			element.setAttribute('download', filename);
+	  if (ie && ieVer<10) {
+		console.log("No blobs on IE ver<10");
+		return;
+	  }
 
-			element.style.display = 'none';
-			document.body.appendChild(element);
+	  var textFileAsBlob = new Blob([textToWrite], {
+		type: 'text/plain'
+	  });
 
-			element.click();
+	  if (ieVer>-1) {
+		window.navigator.msSaveBlob(textFileAsBlob, fileNameToSaveAs);
 
-			document.body.removeChild(element);
-		}
-		
-		
+	  } else {
+		var downloadLink = document.createElement("a");
+		downloadLink.download = fileNameToSaveAs;
+		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+		downloadLink.onclick = function(e) { document.body.removeChild(e.target); };
+		downloadLink.style.display = "none";
+		document.body.appendChild(downloadLink);
+		downloadLink.click();
+	  }
 	}
 
 	////////RUN LOAD/////////////////////////		
