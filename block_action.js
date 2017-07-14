@@ -672,9 +672,9 @@
 		if(saveInServer){
 		    try{
 			var chunker = new ChunkWs("ws://somata.inf.ed.ac.uk/chunks/ws",function(a,b,c) {
-			    console.log("Chunker callback, args: a=" + a ", b=" + b + ", c=" + JSON.stringify(c));
+			    console.log("Chunker callback, args: a=" + a + ", b=" + b + ", c=" + JSON.stringify(c));
 			    if(b==true) {
-				throw "Error in sending websocket message, response was " + JSON.stringify(c);
+				throw ("Error in sending websocket message, response was " + JSON.stringify(c));
 			    }
 			});
 			  chunker.sendChunk(game_json);			
