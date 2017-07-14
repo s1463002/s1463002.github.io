@@ -1,11 +1,11 @@
 //Configuration variables and Init variables
 loadTranslations();
-var version=1.35;
+var version=1.36;
 var versionB=version;
 var sessionID=Math.random();
 
 var numberAttempts = 5;
-var saveInServer = true;
+var saveInServer = false;
 var downloadJSON = true;
 
 var b_size = 30;

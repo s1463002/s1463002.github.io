@@ -24,190 +24,7 @@
 			(elem=document.getElementById(id)) ) {
 			if (elem.style) elem.style.cursor=cursorStyle;
 		}
-	}
-	////////////////////EVENTS/////////////////////////
-	var c = document.getElementById('blocksCanvas');
-	
-	///////////////////EVENTS Blocks///////////////////    
-    blocksCanvas.addEventListener('mousemove', function(e) {
-		if(block_actions==1){
-			e.target.style.cursor = 'not-allowed';
-			return;
-		} 
-		
-		//e.target.style.cursor = 'pointer'
-		//e.target.style.cursor="url(http://www.google.com/intl/en_ALL/mapfiles/openhand.cur)";		
-		
-		var clickedX = e.pageX - this.offsetLeft;
-		var clickedY = e.pageY - this.offsetTop;
-		var message = clickedX + ',' + clickedY;
-		
-		if (clickedX > 620 && clickedX < 720 && clickedY > 320 && clickedY < 370) {
-			return;
-		}
-		
-		var selected = -1;
-		for (var i = 0; i < cubes.length; i++) {
-			if (clickedX < cubes[i].right && clickedX > cubes[i].left && clickedY > cubes[i].top && clickedY < cubes[i].bottom) {
-				selected = i;
-			}
-		}
-		
-		var selected_task = -1;
-		for (var i = 0; i < blocks_per_floor; i++) {
-			if (clickedX >= x_floor+i*b_size-b_size/2 && clickedX < x_floor+b_size+i*b_size) {
-				selected_task = i;
-			}
-		}				
-		
-		current_task = loadTask(blocksCanvas,current_task,selected_task);
-		loadBlocks(blocksCanvas,current_blocks,selected,clickedX,clickedY);
-		//writeMessage(blocksCanvas, message);
-		writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');
-		if(isShowButton('submit')==0 && tasks[0].conf[level].after!=current_task)
-			drawX(blocksCanvas,250,300);
-    }, false);
-	
-	blocksCanvas.addEventListener('mouseout', function(e) {
-		if(block_actions==1) return;
-		
-		e.target.style.cursor = 'move'
-		
-		//writeMessage(blocksCanvas, '');		
-		loadBlocks(blocksCanvas,current_blocks);
-		current_task = loadTask(blocksCanvas,current_task);
-	}, false);
-	
-	blocksCanvas.addEventListener('mouseenter', function(e) {
-		if(block_actions==1) return;
-		
-		blocksCanvas.setAttribute("style", "cursor: move; cursor: grab; cursor:-moz-grab; cursor:-webkit-grab;");
-	}, false);
-	
-	
-	blocksCanvas.addEventListener('mousedown', function (e) {
-		if(block_actions==1) return;		
-		
-		blocksCanvas.setAttribute("style", "cursor: move; cursor: grabbing; cursor:-moz-grabbing; cursor:-webkit-grabbing;");
-		
-		var clickedX = e.pageX - this.offsetLeft;
-		var clickedY = e.pageY - this.offsetTop;
-    		   
-		//Select a block and hold it
-		if(click_block==-1){
-			for (var i = 0; i < cubes.length; i++) {
-				if (clickedX < cubes[i].right && clickedX > cubes[i].left && clickedY > cubes[i].top && clickedY < cubes[i].bottom) {
-					click_block = i;
-					loadBlocks(blocksCanvas,current_blocks,-1,clickedX,clickedY);
-					current_task = loadTask(blocksCanvas,current_task);		
-				}
-			}			
-		}	
-
-		var selected_column = -1;
-		for (var i = 0; i < blocks_per_floor; i++) {
-			if (clickedX >= x_floor+i*b_size-b_size/2 && clickedX < x_floor+b_size+i*b_size) {
-				selected_column = i;
-			}
-		}
-		//Place a block in the task		
-		if (click_block==-1 && selected_column!=-1) {//Remove a block in the task				
-			var row = current_task.split("_");
-			var removed = 0;
-			for (var i = row.length-1 ; i >= 0 ; i--) {						
-				for(var j=0; j<row[i].length;j++){
-					if(removed==0 && selected_column==j && row[i].charAt(j)!='0'){
-						current_blocks+=row[i].charAt(j);
-						row[i] = setCharAt(row[i],j,"0");
-						removed=1;
-					}				
-				}							
-			}
-			top_row = '';
-			for(var i=0;i<blocks_per_floor;i++){
-				top_row+='0';
-			}
-			current_task = '';
-			for (var i = 0; i < row.length ; i++) {
-				if(i==0 || row[i]!=top_row){
-					if(current_task!='') current_task+='_';
-					current_task+= row[i];
-				}
-			}			
-			click_block = cubes.length;								
-			current_task = loadTask(blocksCanvas,current_task);				
-			loadBlocks(blocksCanvas,current_blocks,-1,clickedX,clickedY);				
-		}		
-				
-	});
-	
-	blocksCanvas.addEventListener('mouseup', function (e) {		
-		if(block_actions==1) return;				
-		
-		blocksCanvas.setAttribute("style", "cursor: move; cursor: grab; cursor:-moz-grab; cursor:-webkit-grab;");
-		
-		var clickedX = e.pageX - this.offsetLeft;
-		var clickedY = e.pageY - this.offsetTop;
-    		   
-		var selected_column = -1;
-		for (var i = 0; i < blocks_per_floor; i++) {
-			if (clickedX >= x_floor+i*b_size-b_size/2 && clickedX < x_floor+b_size+i*b_size) {
-				selected_column = i;				
-			}
-		}
-		if(selected_column==-1){			
-			if(click_block!=-1){
-				showButton('submit',1);				
-			}
-			click_block = -1;
-			loadBlocks(blocksCanvas,current_blocks,-1,clickedX,clickedY);
-			current_task = loadTask(blocksCanvas,current_task);							
-		}		
-		//Place a block in the task		
-		if (click_block!=-1 && selected_column!=-1) {
-			showButton('submit',1);
-			cur_blocks = '';
-			for (var j = 0; j < current_blocks.length; j++) {					
-				if(j!=click_block){
-					cur_blocks += current_blocks.charAt(j);				
-				}else{//100,	111_101_101
-					var row = current_task.split("_");
-					var placed = 0;
-					for (var k = 0; k < row.length ; k++) {
-						for(var n=0; n<row[k].length;n++){
-							if(placed==0 && selected_column==n && row[k].charAt(n)=='0'){
-								row[k] = setCharAt(row[k],n,current_blocks.charAt(j));
-								placed = 1;		
-							}	
-							
-						}							
-					}
-					current_task = '';
-					for (var k = 0; k < row.length ; k++) {
-						if(current_task!='') current_task+='_';
-						current_task+= row[k];
-					}
-					if(placed==0){
-						new_floor = '_'
-						for (var k = 0; k < row[0].length ; k++) {
-							if(selected_column==k){
-								new_floor += current_blocks.charAt(j);
-							}else{
-								new_floor += '0';
-							}
-						}
-						current_task+=new_floor;
-					}
-					
-				}											
-			}
-			current_blocks = cur_blocks;			
-			click_block=-1;
-			loadBlocks(blocksCanvas,current_blocks,click_block,clickedX,clickedY);							
-			current_task = loadTask(blocksCanvas,current_task);			
-		}	
-		setVariables();				
-	});
+	}	
 	
 	///////////////////LOAD/////////////////////////
 	///////////////////////////////////////////////
@@ -357,29 +174,30 @@
 	}
 	
 	function progress(canvas,current){
+		var extra_height = 0;
 		var context = canvas.getContext('2d');
 		for(var i = 0; i < tasks[0].conf.length; i++){			
 			color='#404040';			
-			if(answers.length>i){
+			if(answers.length>i){				
 				if(answers[i].result==1)
 					color='#00b300';
 				else
 					color='#e60000';
 			}
-			if(answers.length==i && current!=-1){
-				if(current==1)
-					color='#00b300';
-				else
-					color='#e60000';				
+			if(current!=-1){
+				extra_height=-100;
+				color='#2E64FE';	
+				if(current<=i){				
+					color='#404040';	
+				}
 			}
 			drawCube(context,
 					b_size*6+(i*b_size/5*4),
-					canvas.height,
+					canvas.height+extra_height,
 					b_size/3,
 					b_size/3,
 					b_size/3,
-					color)									
-			
+					color);			
 		}
 		
 	}
@@ -530,8 +348,8 @@
 		context.fillStyle = 'black';
 
 			
-		context.fillText('Correct', 690,230);	
-		context.fillText('pattern:', 690,245);	
+		context.fillText('All correct', 690,230);	
+		context.fillText('patterns:', 690,245);	
 	}
 	
 	function blockAndNext(){
@@ -553,7 +371,7 @@
 			loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
 			// request new frame
 			loop();
-			animation = setInterval(loop,1000);				
+			animation = setInterval(loop,1500);				
 			
 			var context = blocksCanvas.getContext('2d');        
 			context.font = '14pt Calibri';
@@ -564,8 +382,7 @@
 			
 			context.fillText('Start', 430,230);			
 			context.fillText('pattern:', 430,245);		
-			
-			//progress(blocksCanvas,0);		
+
 		}//else
 		progress(blocksCanvas,-1);		
 		
@@ -651,12 +468,12 @@
 		return str;
 	}
 
+	var chunker;
 	function submitSurvey(){	
 		survey=[];
-		survey.push("Gender:"+document.getElementById("gender").value);
 		survey.push("Age:"+document.getElementById("age").value);
 		survey.push("School:"+document.getElementById("school").value);
-		survey.push("Enjoy:"+document.getElementById("enjoy").value);
+		survey.push("Clear instructions:"+document.getElementById("clear").value);
 		survey.push("Difficult:"+document.getElementById("difficult").value);
 		survey.push("Feedback:"+removeSpecialCharacters(document.getElementById("feedback").value));
 		for(var i=1;i<words.length;i++){
@@ -671,13 +488,13 @@
 		//alert(JSON.stringify(game_json))						
 		if(saveInServer){
 		    try{
-			var chunker = new ChunkWs("ws://somata.inf.ed.ac.uk/chunks/ws",function(a,b,c) {
-			    console.log("Chunker callback, args: a=" + a + ", b=" + b + ", c=" + JSON.stringify(c));
-			    if(b==true) {
-				throw ("Error in sending websocket message, response was " + JSON.stringify(c));
-			    }
-			});
-			  chunker.sendChunk(game_json);			
+				chunker = new ChunkWs("ws://somata.inf.ed.ac.uk/chunks/ws",function(a,b,c) {
+					console.log("Chunker callback, args: a="+a+", b=" + b + ", c=" + JSON.stringify(c));
+					if(b==true) {
+						throw ("Error in sending websocket message, response was " + JSON.stringify(c));
+					}
+				});
+				chunker.sendChunk(JSON.stringify(game_json));	
 			}catch(e){
 				downloadJSON=true;
 			    alert(e);
@@ -687,10 +504,11 @@
 		if(downloadJSON){
 			download("shrdlevo.json",JSON.stringify(game_json));
 		}
-		//experiment=4;
-		//setVariables();	
-		//window.open("done.html","_self");
+		experiment=4;
+		setVariables();	
+		window.open("done.html","_self");
 	}
+	
 	
 	function download(fileNameToSaveAs, textToWrite) {
 	  /* Saves a text string as a blob file*/  
@@ -751,6 +569,7 @@
 		loadTask(blocksCanvas,tasks[0].conf[level].before);
 		loadTask(blocksCanvas,tasks[0].conf[level].after[0],-1,pattern_separation);
 		loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
+		progress(blocksCanvas,level);
 		
 		var context = blocksCanvas.getContext('2d');        
 		context.font = '14pt Calibri';
@@ -930,6 +749,9 @@
 		survey = (localStorage.getItem("survey")).split(",");			
 
 		var x = document.URL
+		if(x.indexOf("summary")!=-1){
+			return;
+		}
 		if(experiment==0 && x.indexOf("index")==-1){
 			window.open("index.html","_self");
 		}
