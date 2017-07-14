@@ -687,9 +687,9 @@
 		if(downloadJSON){
 			download("shrdlevo.json",JSON.stringify(game_json));
 		}
-		experiment=4;
-		setVariables();	
-		window.open("done.html","_self");
+		//experiment=4;
+		//setVariables();	
+		//window.open("done.html","_self");
 	}
 	
 	function download(fileNameToSaveAs, textToWrite) {
