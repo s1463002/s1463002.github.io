@@ -680,7 +680,8 @@
 			  chunker.sendChunk(game_json);			
 			}catch(e){
 				downloadJSON=true;
-				alert(e);
+			    alert(e);
+			    throw e;
 			}
 		}
 		if(downloadJSON){
