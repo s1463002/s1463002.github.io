@@ -685,7 +685,8 @@
 		var isIE = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
 
 		if(isIE){
-			var ifd = document.getElementById('a').contentDocument;
+			var ifd = document.createElement('a').contentDocument;
+			//var ifd = document.getElementById('a').contentDocument;
 			ifd.open('text/plain', 'replace');
 			ifd.write(text);
 			ifd.close();
