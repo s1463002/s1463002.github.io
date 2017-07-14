@@ -28,7 +28,7 @@ var tasks = [{
 		{"blocks":"12","before":"212","after":["212_100","212_001","122_010","122_001","221_100","221_010"],"instruction":"add blue on orange"},
 		
 		{"blocks":"","before":"1234_1256_1000","after":["0234_0156"],"instruction":"remove all blue remove orange add blue on orange"},
-		{"blocks":"","before":"123456_123400_120000","after":["000000"],"instruction":"remove all"},
+		{"blocks":"","before":"3456_2300_0100","after":["0000"],"instruction":"remove all"},
 		{"blocks":"456","before":"000","after":["456","465","546","564","645","654"],"instruction":"add all"}
 	]
 }]

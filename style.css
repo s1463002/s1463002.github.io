@@ -49,6 +49,19 @@ div {
     height: 400px;
 }
 
+#fourth {
+	border: 1px solid #bfbfbf;
+	background-color:#ffffff;
+	background-color:white;
+	padding-left:5px;
+	border-radius: 15px;
+	padding:10px;	
+}
+#fourth:hover {
+    box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+
+}
+
 .instructions{
 	background-color:white;
 	position: absolute; 

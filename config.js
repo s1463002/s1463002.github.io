@@ -41,6 +41,7 @@ function loadTranslations(){
 				translation+=space;
 		}
 		tasks[0].conf[i].instruction=translation;
+		tasks[0].conf[i].old_instruction=translation;
 	}	
 }
 	

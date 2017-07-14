@@ -647,23 +647,25 @@
 	function removeSpecialCharacters(str){		
 		str = replaceAll(str,'"','´');
 		str = replaceAll(str,"'","´");
+		str = replaceAll(str,",",".");
 		return str;
 	}
 
 	function submitSurvey(){	
 		survey=[];
-		survey.push("gender:"+document.getElementById("gender").value);
-		survey.push("age:"+document.getElementById("age").value);
-		survey.push("school:"+document.getElementById("school").value);
-		survey.push("enjoy:"+document.getElementById("enjoy").value);
-		survey.push("difficult:"+document.getElementById("difficult").value);
-		survey.push("fedback:"+removeSpecialCharacters(document.getElementById("fedback").value));
+		survey.push("Gender:"+document.getElementById("gender").value);
+		survey.push("Age:"+document.getElementById("age").value);
+		survey.push("School:"+document.getElementById("school").value);
+		survey.push("Enjoy:"+document.getElementById("enjoy").value);
+		survey.push("Difficult:"+document.getElementById("difficult").value);
+		survey.push("Feedback:"+removeSpecialCharacters(document.getElementById("feedback").value));
 		for(var i=1;i<words.length;i++){
 			survey.push(words[i].word+"("+getTranslation(words[i].word)+"):"+removeSpecialCharacters(document.getElementById("word"+i).value));
 		}
 						
 		var game_json = {};
 		game_json.answers = answers;
+		game_json.tasks = tasks;
 		game_json.survey = survey;
 		
 		//alert(JSON.stringify(game_json))
@@ -822,7 +824,8 @@
 			+"\n current_task: "+current_task
 			+"\n creatingInstruction: "+creatingInstruction
 			+"\n tasks: "+JSON.stringify(tasks)
-			+"\n answers: "+answers
+			+"\n answers: "+JSON.stringify(answers)
+			+"\n survey: "+survey.toString()		
 			);
 			
 	}
@@ -843,7 +846,9 @@
 		localStorage.setItem("current_task", current_task);
 		localStorage.setItem("creatingInstruction", creatingInstruction);
 		localStorage.setItem("tasks",  JSON.stringify(tasks));
-		localStorage.setItem("answers", JSON.stringify(answers));		
+		localStorage.setItem("answers", JSON.stringify(answers));
+		localStorage.setItem("survey", survey.toString());
+		
 		//document.cookie = "block_actions="+block_actions+";currentAttempts="+currentAttempts+";cubes="+JSON.stringify(cubes)+";task_cubes="+JSON.stringify(task_cubes)+";click_block="+click_block+";blocks_per_floor="+blocks_per_floor+";current_blocks="+current_blocks+";current_task="+current_task+";";		
 	}
 	
@@ -865,6 +870,7 @@
 		localStorage.setItem("creatingInstruction", "");
 		localStorage.setItem("tasks", JSON.stringify(tasksB));	
 		localStorage.setItem("answers", "[]");
+		localStorage.setItem("survey", "[]");		
 		location.reload();		
 	}
 	
@@ -889,6 +895,7 @@
 		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");			
 		tasks = JSON.parse(localStorage.getItem("tasks"));
 		answers = JSON.parse(localStorage.getItem("answers"));
+		survey = (localStorage.getItem("survey")).split(",");			
 
 		var x = document.URL
 		if(experiment==0 && x.indexOf("index")==-1){
@@ -928,6 +935,23 @@
 		current_blocks = cookies[6];
 		current_task = cookies[7];*/
 	}
-	
-	//loadAllCanvas();
-	
+
+	var text;
+	function onFileSelected(event) {
+	  var selectedFile = event.target.files[0];
+	  var reader = new FileReader();
+
+	  reader.onload = function(event) {
+		text = event.target.result;
+		json = JSON.parse(text);
+		
+		answers = json.answers;
+		tasks = json.tasks;
+		survey = json.survey;
+		
+		setVariables();
+		location.reload();	
+	  };
+
+	  reader.readAsText(selectedFile);
+	}
