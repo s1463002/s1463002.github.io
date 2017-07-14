@@ -809,7 +809,8 @@
 	
 	function showVariables(){
 		
-		alert(" experiment: "+experiment
+		alert("VERSION: "+version
+			+"\n experiment: "+experiment
 			+"\n level: "+level
 			+"\n done: "+done
 			+"\n showInstructions: "+showInstructions
@@ -830,7 +831,8 @@
 			
 	}
 	
-	function setVariables(){
+	function setVariables(){		
+		localStorage.setItem("version", version.toString());
 		localStorage.setItem("experiment", experiment.toString());
 		localStorage.setItem("level", level.toString());
 		localStorage.setItem("done", done.toString());
@@ -854,6 +856,8 @@
 	
 	function resetVariables(){
 		//showVariables();
+		
+		localStorage.setItem("version", versionB.toString());
 		localStorage.setItem("experiment", "0");
 		localStorage.setItem("level", "0");
 		localStorage.setItem("done", "0");
@@ -875,10 +879,10 @@
 	}
 	
 	function getVariables(){
-		if (localStorage.getItem("level") === null) {			
+		if (localStorage.getItem("version") === null || localStorage.getItem("version")!=version.toString()){
 			resetVariables();
-			return;
 		}		
+		version = parseFloat(localStorage.getItem("version"));
 		experiment = parseInt(localStorage.getItem("experiment"));
 		level = parseInt(localStorage.getItem("level"));
 		done = parseInt(localStorage.getItem("done"));
