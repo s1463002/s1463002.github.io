@@ -2,6 +2,7 @@
 loadTranslations();
 var version=1.35;
 var versionB=version;
+var sessionID=Math.random();
 
 var numberAttempts = 5;
 var saveInServer = true;

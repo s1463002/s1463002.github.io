@@ -668,10 +668,14 @@
 		game_json.tasks = tasks;
 		game_json.survey = survey;
 		
-		//alert(JSON.stringify(game_json))
-						
+		//alert(JSON.stringify(game_json))						
 		if(saveInServer){
-			//ChunkWs("somata.inf.ed.ac.uk/chunks/get?experimentId=shrdlevo",JSON.stringify(game_json));			
+			try{
+				ChunkWs("https://somata.inf.ed.ac.uk/chunks/ws?experimentId=shrdlevo&sessionId="+sessionID,JSON.stringify(game_json));			
+			}catch(e){
+				downloadJSON=true;
+				alert(e);
+			}
 		}
 		if(downloadJSON){
 			download("shrdlevo.json",JSON.stringify(game_json));
