@@ -682,16 +682,29 @@
 	}
 	
 	function download(filename, text) {
-		var element = document.createElement('a');
-		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-		element.setAttribute('download', filename);
+		var isIE = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
 
-		element.style.display = 'none';
-		document.body.appendChild(element);
+		if(isIE){
+			var ifd = document.getElementById('a').contentDocument;
+			ifd.open('text/plain', 'replace');
+			ifd.write(text);
+			ifd.close();
+			ifd.execCommand('SaveAs', true, filename);
+		}
+		else{
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
 
-		element.click();
+			element.style.display = 'none';
+			document.body.appendChild(element);
 
-		document.body.removeChild(element);
+			element.click();
+
+			document.body.removeChild(element);
+		}
+		
+		
 	}
 
 	////////RUN LOAD/////////////////////////		
