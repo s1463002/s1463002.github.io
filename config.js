@@ -7,7 +7,7 @@ function getFileFromServer(url, doneCallback) {
 
     xhr = new XMLHttpRequest();
     xhr.onreadystatechange = handleStateChange;
-    xhr.open("GET", url, true);
+    xhr.open("GET", url, false);
     xhr.send();
 
     function handleStateChange() {
@@ -18,7 +18,7 @@ function getFileFromServer(url, doneCallback) {
 }
 getFileFromServer("json/tasks.json", function(text) {
     if (text === null) {
-       alert('hi')
+		//Error
     }
     else {
         tasks = JSON.parse(text);
