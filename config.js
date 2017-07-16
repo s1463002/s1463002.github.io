@@ -1,31 +1,3 @@
-//Load task
-//This event is called when the DOM is fully loaded
-var tasks;
-    
-function getFileFromServer(url, doneCallback) {
-    var xhr;
-
-    xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = handleStateChange;
-    xhr.open("GET", url, false);
-    xhr.send();
-
-    function handleStateChange() {
-        if (xhr.readyState === 4) {
-            doneCallback(xhr.status == 200 ? xhr.responseText : null);
-        }
-    }
-}
-getFileFromServer("json/tasks.json", function(text) {
-    if (text === null) {
-		//Error
-    }
-    else {
-        tasks = JSON.parse(text);
-    }
-});
-
-
 //Configuration variables and Init variables
 loadTranslations();
 var version=1.36;
@@ -58,7 +30,19 @@ var current_task = '';//Participant solving task panel bottom right
 var creatingInstruction = [];//Creates the instruction for the next participant
 var answers = [];//Store time, attempts and result for each task as a JSON
 var survey = [];//Store time, attempts and result for each task as a JSON
-tasksB = tasks;//To restart to the begining.
+//tasksB = tasks;//To restart to the begining.
+
+//Colors to use for blocks
+var block_colors=[
+{"color":"empty","unselect":"","select":""},
+{"color":"blue","unselect":"#0080ff","select":"#004d99"},
+{"color":"orange","unselect":"#ff8000","select":"#994d00"},
+{"color":"green","unselect":"#009926","select":"#004d13"},
+{"color":"pink","unselect":"#ff66ff","select":"#ff1aff"},
+{"color":"purple","unselect":"#5900b3","select":"#26004d"},
+{"color":"brown","unselect":"#4d2600","select":"#1a0d00"}
+]
+
 
 function loadTranslations(){		
 	space = getTranslation(" ");

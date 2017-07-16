@@ -7,8 +7,7 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href=style.css>	 
 	<link rel="icon" type="image/png" href="block.png">	
-		
-	<script type="text/javascript" src="json/language.json"></script>	
+	<script src="loadVariables.js"></script>
 	<script src="config.js"></script>
 	<script src="block_script.js"></script>	
 	<script src="block_action.js"></script>	
@@ -37,8 +36,7 @@
 		</div>
 	</center>
 	<canvas id="blocksCanvas" width="1" height="1"></canvas>
-	<script>
-		getVariables();
+	<script>		
 		// Animation function
 		function draw(){			
 			var canvas = document.getElementById("canvas1");
@@ -62,7 +60,8 @@
 			requestAnimationFrame(draw);
 		}
 		draw();	
-
+		
+		getVariables();
 	</script>
   </body>
 </html>

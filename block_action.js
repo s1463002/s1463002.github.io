@@ -719,7 +719,7 @@
 		localStorage.setItem("current_blocks", "");
 		localStorage.setItem("current_task", "");
 		localStorage.setItem("creatingInstruction", "");
-		localStorage.setItem("tasks", JSON.stringify(tasksB));	
+		localStorage.setItem("tasks", "[]");	
 		localStorage.setItem("answers", "[]");
 		localStorage.setItem("survey", "[]");		
 		location.reload();		
