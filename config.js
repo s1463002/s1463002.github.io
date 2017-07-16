@@ -21,7 +21,7 @@ getFileFromServer("json/tasks.json", function(text) {
        alert('hi')
     }
     else {
-        tasks = loadFile(text);
+        tasks = JSON.parse(text);
     }
 });
 
