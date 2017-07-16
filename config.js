@@ -1,3 +1,31 @@
+//Load task
+//This event is called when the DOM is fully loaded
+var tasks;
+    
+function getFileFromServer(url, doneCallback) {
+    var xhr;
+
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = handleStateChange;
+    xhr.open("GET", url, true);
+    xhr.send();
+
+    function handleStateChange() {
+        if (xhr.readyState === 4) {
+            doneCallback(xhr.status == 200 ? xhr.responseText : null);
+        }
+    }
+}
+getFileFromServer("json/tasks.json", function(text) {
+    if (text === null) {
+       alert('hi')
+    }
+    else {
+        tasks = loadFile(text);
+    }
+});
+
+
 //Configuration variables and Init variables
 loadTranslations();
 var version=1.36;
@@ -8,6 +36,7 @@ var numberAttempts = 5;
 var saveInServer = false;
 var downloadJSON = true;
 
+/*******************Game variables*******************************/
 var b_size = 30;
 var pattern_separation = 270;//Separate patters last attempt, before and after when all of them in screen
 var startTime;

@@ -1,4 +1,4 @@
-var tasks = [{
+[{
 	"id":"1",
 	"conf":[	
 		{"blocks":"1","before":"0","after":["1"],"instruction":"add blue"},
