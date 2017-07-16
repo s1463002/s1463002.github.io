@@ -703,7 +703,7 @@
 	
 	function resetVariables(){
 		//showVariables();
-		
+		experiment=0;
 		localStorage.setItem("version", versionB.toString());
 		localStorage.setItem("experiment", "0");
 		localStorage.setItem("level", "0");
