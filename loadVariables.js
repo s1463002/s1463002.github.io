@@ -20,27 +20,29 @@ function getFileFromServer(url, doneCallback) {
         }
     }
 }
-getFileFromServer("json/tasks.json", function(text) {
-    if (text === null) {
-		//Error
-    }
-    else {
-        tasks = JSON.parse(text);
-    }
-});
-getFileFromServer("json/tokens.json", function(text) {
-    if (text === null) {
-		//Error
-    }
-    else {
-        tokens = JSON.parse(text);
-    }
-});
-getFileFromServer("json/words.json", function(text) {
-    if (text === null) {
-		//Error
-    }
-    else {
-        words = JSON.parse(text);
-    }
-});
+function loadFiles(){
+	getFileFromServer("json/tasks.json", function(text) {
+		if (text === null) {
+			//Error
+		}
+		else {
+			tasks = JSON.parse(text);
+		}
+	});
+	getFileFromServer("json/tokens.json", function(text) {
+		if (text === null) {
+			//Error
+		}
+		else {
+			tokens = JSON.parse(text);
+		}
+	});
+	getFileFromServer("json/words.json", function(text) {
+		if (text === null) {
+			//Error
+		}
+		else {
+			words = JSON.parse(text);
+		}
+	});
+}
