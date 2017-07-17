@@ -185,7 +185,7 @@
 					color='#e60000';
 			}
 			if(current!=-1){
-				extra_height=-100;
+				extra_height=-85;
 				color='#2E64FE';	
 				if(current<=i){				
 					color='#404040';	
