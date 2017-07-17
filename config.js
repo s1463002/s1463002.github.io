@@ -27,6 +27,7 @@ function loadFiles(){
 		}
 		else {
 			tasks = JSON.parse(text);
+			alert(text);
 		}
 	});
 	getFileFromServer("json/tokens.txt", function(text) {
@@ -50,6 +51,8 @@ function loadFiles(){
 //Configuration variables and Init variables
 loadFiles();
 loadTranslations();
+setVariables();
+
 var version=1.36;
 var versionB=version;
 var sessionID=Math.random();

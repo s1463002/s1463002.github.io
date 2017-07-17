@@ -648,6 +648,7 @@
 	function agreeEthics(){
 		if(document.getElementById('agree').checked) { 
 			experiment=1;
+			alert(JSON.stringify(tasks));
 			setVariables();
 			window.open("experiment1.html","_self");			
 		} else { 
@@ -694,8 +695,7 @@
 		localStorage.setItem("blocks_per_floor", blocks_per_floor.toString());
 		localStorage.setItem("current_blocks", current_blocks);
 		localStorage.setItem("current_task", current_task);
-		localStorage.setItem("creatingInstruction", creatingInstruction);
-		alert( JSON.stringify(tasks));
+		localStorage.setItem("creatingInstruction", creatingInstruction);		
 		localStorage.setItem("tasks",  JSON.stringify(tasks));
 		localStorage.setItem("answers", JSON.stringify(answers));
 		localStorage.setItem("survey", survey.toString());
