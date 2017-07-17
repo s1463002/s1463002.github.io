@@ -9,16 +9,17 @@
 		
 	<script src="https://somata.inf.ed.ac.uk/assets/javascripts/jquery-3.1.1.min.js"></script>
 	<script src="https://somata.inf.ed.ac.uk/assets/javascripts/chunks.js"></script>
+		
+	<script src="block_action.js"></script>	
 	
-	<script type="text/javascript" src="json/tasks.json"></script>	
-	<script type="text/javascript" src="json/language.json"></script>	
-	<script src="block_script.js"></script>	
+	<script src="translate.js"></script>
 	<script src="config.js"></script>
-	
+	<script src="variables.js"></script>
   </head>
   <body> 
 	<span id="debug" style="color:red;font-weight: bold;"></span>
 	<script>
+		getVariables();	
 		if(debugMode) document.getElementById("debug").innerHTML = 'Debug mode.<button id="resetVariables" style="cursor:pointer;position: absolute; top:1; left:90px;" onclick="resetVariables();">resetVariables</button>';		
 	</script>
 	<center>		
@@ -85,7 +86,7 @@
 					</tr>
 				</table>				
 				
-				<script>
+				<script>					
 					document.getElementById('word_questions').innerHTML="";
 					for(var i=1;i<words.length;i++){
 						document.getElementById('word_questions').innerHTML += '<div style="padding:10px;float:left; display:inline"><strong>'+getTranslation(words[i].word)+'</strong><br/><input type="text" id="word'+i+'" name="word'+i+'"/></div>';						
@@ -100,10 +101,8 @@
 	</center>
 
 	<script src="block_action.js"></script>	
-	<script>
-		getVariables();
+	<script>		
 		//alert(JSON.stringify(tasks));
-		
 		var chunker;
 		try{
 			chunker = new ChunkWs("wss://somata.inf.ed.ac.uk/chunks/ws",function(a,b,c) {

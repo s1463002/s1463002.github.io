@@ -6,11 +6,14 @@
     <title>Web Game For Studying Language Evolution</title>
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href=style.css>	 
-	<link rel="icon" type="image/png" href="block.png">	
-	
+	<link rel="icon" type="image/png" href="block.png">			
+		
+	<script src="translate.js"></script>
+	<script src="config.js"></script>		
+	<script src="variables.js"></script>
 	<script type="text/javascript" src="json/tasks.json"></script>	
 	<script type="text/javascript" src="json/language.json"></script>	
-	<script src="config.js"></script>
+	
 	<script src="block_script.js"></script>	
 	<script src="block_action.js"></script>	
   </head>
@@ -42,8 +45,8 @@
 		</div>
 	</center>
 	<canvas id="blocksCanvas" width="1" height="1"></canvas>
-	<script>
-		getVariables();
+	
+	<script>					
 		// Animation function
 		function draw(){			
 			var canvas = document.getElementById("canvas1");
@@ -68,6 +71,7 @@
 		}
 		draw();	
 
+		getVariables();
 	</script>
   </body>
 </html>

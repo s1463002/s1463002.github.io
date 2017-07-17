@@ -32,3 +32,5 @@ var tasks = [{
 		{"blocks":"456","before":"000","after":["456","465","546","564","645","654"],"instruction":"add all"}
 	]
 }]
+
+var tasksB = tasks
