@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>Web Game For Studying Language Evolution</title>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href=style.css>	 	
+    <link rel="stylesheet" type="text/css" href="css/style.css">	 
 	<link rel="icon" type="image/png" href="block.png">
 	
 	<script type="text/javascript" src="json/tasks.json"></script>	
 	<script type="text/javascript" src="json/language.json"></script>	
-	<script src="block_script.js"></script>	
-	<script src="block_action.js"></script>	
-	<script src="config.js"></script>
+	<script src="js/block_script.js"></script>	
+	<script src="js/block_action.js"></script>	
+	<script src="js/config.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -147,9 +147,9 @@
 				
 				<h3>Part 1 results</h3>
 					<div style="display:block;">
-						<div id="piechartTime" style="background-color:#e6e6e6;width: 340px;height:370px;float:left; display:inline"></div>				
-						<div id="piechartAttempts" style="background-color:#e6e6e6;width: 340px;height:370px;float:left; display:inline"></div>
-						<div id="piechartSuccess" style="background-color:#e6e6e6;width: 270px;height:370px;float:left; display:inline"></div>
+						<div id="piechartTime"  class="chart" style="width: 340px;height:370px;float:left; display:inline;"></div>				
+						<div id="piechartAttempts" class="chart" style="width: 340px;height:370px;float:left; display:inline;"></div>
+						<div id="piechartSuccess"  class="chart" style="width: 270px;height:370px;float:left; display:inline;"></div>
 					</div>
 					<h3>Part 2 instructions</h3>
 					<div id="instructions"></div>

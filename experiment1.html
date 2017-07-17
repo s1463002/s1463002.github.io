@@ -4,27 +4,27 @@
     <meta charset="UTF-8">
     <title>Web Game For Studying Language Evolution</title>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href=style.css>	 	
+    <link rel="stylesheet" type="text/css" href="css/style.css">	 	
 	<link rel="icon" type="image/png" href="block.png">
 	
-	<script src="block_script.js"></script>		
-	<script src="block_action.js"></script>	
+	<script src="js/block_script.js"></script>		
+	<script src="js/block_action.js"></script>	
 	
-	<script src="translate.js"></script>
-	<script src="config.js"></script>
-	<script src="variables.js"></script>
+	<script src="js/translate.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/variables.js"></script>
   </head>
   <body> 
-	<span id="debug" style="color:red;font-weight: bold;"></span>
+	<span id="debug"></span>
 	<script>
 		if(debugMode) document.getElementById("debug").innerHTML = 'Debug mode. <button onclick="resetVariables();">resetVariables</button> <button onclick="skipLevelPart1();">Skip level</button> <button onclick="skipAllLevelPart1();">Skip all levels</button>';		
 	</script>
 	<center>		
-		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">
+		<div id="wrapper" align="left">
 			<div id="first">	
 					&nbsp;
-					<button id="help" style="cursor:pointer;" onclick="showInstructionPopUp('block');" title="Help">?</button>								
-					<button id="about" style="cursor:pointer;" onclick="showAboutPopUp('block');" title="About">i</button>	
+					<button id="help" onclick="showInstructionPopUp('block');" title="Help">?</button>								
+					<button id="about" onclick="showAboutPopUp('block');" title="About">i</button>	
 					<strong>Part 1</strong>					
 			</div>
 			<div id="second">
@@ -41,19 +41,19 @@
 				Task:</span >
 				<div id="blocks" style="width:100%; height:100%;" >				
 					<canvas id="blocksCanvas" width="1000" height="400"></canvas>					
-					<button id="reset" style="cursor:pointer;position: absolute; top:150px; left:50%" onclick="loadAllCanvas();">Restart level</button>
-					<button id="submit" style="cursor:pointer;position: absolute; top:430px; left:50%;" onclick="submitAnswer();">Submit</button>
-					<button id="next" style="cursor:pointer;position: absolute; top:450px; left:50%;" onclick="nextLevel();">Next</button>				
+					<button id="reset" style="position: absolute; top:150px; left:50%" onclick="loadAllCanvas();">Restart level</button>
+					<button id="submit" style="position: absolute; top:430px; left:50%;" onclick="submitAnswer();">Submit</button>
+					<button id="next" style="position: absolute; top:450px; left:50%;" onclick="nextLevel();">Next</button>				
 				</div>
 				<span >Question mark '?' button for help.</span >
 			</div>	
 
 
-			<div class="instructions" id="instructions" align="left" style="background-color:#e6e6e6;" >
+			<div class="instructions" id="instructions" align="left" >
 				<div id='close' style="cursor:pointer;" onclick="showInstructionPopUp('none');">x</div>		
 				<h3>Part 1 Instructions:</h3>
 				<br/>						
-				<img style="cursor:not-allowed;float:left; display:inline;padding:25px;" src="instruction.gif">
+				<img src="images/instruction.gif" style="cursor:not-allowed;float:left; display:inline;padding:25px;">
 				
 				<br/>	
 				At the top of the screen, you will see instructions in the blockworld language. On the right side of the screen, there will be a starting pattern of blocks that you need to modify according to those instructions. On the left side of the screen is your workspace. Below is a schematic the the task screen, and the steps in each task:
@@ -70,22 +70,22 @@
 				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 				<!--p>You have a number of attempts on each task shown in <span class="numberCircle">&nbsp;4&nbsp;</span-->					
 					<h3>Actions</h3>
-					<img src="pointer.png">Pointer for allowed buttons to use.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<img src="not-allowed.png">Area not allowed for interaction.<br/>
-					<img src="grab.png">Area possible to grab.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<img src="grabbing.png">Grabbing block.<br/><br/>
+					<img src="images/pointer.png">Pointer for allowed buttons to use.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<img src="images/not-allowed.png">Area not allowed for interaction.<br/>
+					<img src="images/grab.png">Area possible to grab.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<img src="images/grabbing.png">Grabbing block.<br/><br/>
 					<h3>Buttons</h3>
 					<strong>Submit</strong>: Press the button when you have the desired block pattern to evaluate if its correct.<br/>
 					<strong>Restart level</strong>: Return the blocks to their initial place.<br/>		
 					<strong>Next</strong>: If the pattern is correct or you have no more attempts, press Next to move to the next task.<br/><br/>
-					<center><button style="cursor:pointer;" onclick="showInstructionPopUp('none');">Close</button></center>
+					<center><button onclick="showInstructionPopUp('none');">Close</button></center>
 			</div>
 			
-			<div class="instructions" id="about1" align="left" style="background-color:#e6e6e6;" >
+			<div class="instructions" id="about1" align="left" >
 				<div id='close' style="cursor:pointer;" onclick="showAboutPopUp('none');">x</div>		
 				<h3>About the game:</h3>			
 				<div style="position: absolute;top:30px;padding:15px;" >
-					<img style="cursor:not-allowed;float:left; display:inline;padding:30px;" width="10%" height="10%" src="blocks.png">
+					<img src="images/blocks.png" style="cursor:not-allowed;float:left; display:inline;padding:30px;" width="10%" height="10%" >
 				
 				  
 				  You have entered blockworld, inhabited by people whose only interest is in arranging colored blocks into patterns.
@@ -104,14 +104,14 @@
 				  <p>There are several words to learn and it might be difficult to remember everything. Just do your best and know that it's ok to make mistakes. 
 				  
 					<p><span style="color:red;font-size:16px;">Note: </span>Please don't use the back button to try to go back to an earlier task. Just do the best you can on each task.
-					<center><button style="cursor:pointer;" onclick="showAboutPopUp('none');">Next</button></center>
+					<center><button onclick="showAboutPopUp('none');">Next</button></center>
 				</div>
 			</div>
 			
 		</div>				
 	</center>
 			
-	<script src="block_events.js"></script>	
+	<script src="js/block_events.js"></script>	
 	<script>
 		getVariables();
 		loadAllCanvas();

@@ -5,26 +5,26 @@
     <meta charset="UTF-8">
     <title>Web Game For Studying Language Evolution</title>
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href=style.css>	 
-	<link rel="icon" type="image/png" href="block.png">			
+    <link rel="stylesheet" type="text/css" href="css/style.css">	 
+	<link rel="icon" type="image/png" href="images/icon/block.png">			
 		
-	<script src="translate.js"></script>
-	<script src="config.js"></script>		
-	<script src="variables.js"></script>
+	<script src="js/translate.js"></script>
+	<script src="js/config.js"></script>		
+	<script src="js/variables.js"></script>
 	<script type="text/javascript" src="json/tasks.json"></script>	
 	<script type="text/javascript" src="json/language.json"></script>	
 	
-	<script src="block_script.js"></script>	
-	<script src="block_action.js"></script>	
+	<script src="js/block_script.js"></script>	
+	<script src="js/block_action.js"></script>	
   </head>
   <body> 
-	<span id="debug" style="color:red;font-weight: bold;"></span>
+	<span id="debug"></span>
 	<script>
-		if(debugMode) document.getElementById("debug").innerHTML = 'Debug mode. <button id="resetVariables" style="cursor:pointer;" onclick="resetVariables();">resetVariables</button>';		
+		if(debugMode) document.getElementById("debug").innerHTML = 'Debug mode. <button id="resetVariables" onclick="resetVariables();">resetVariables</button>';		
 	</script>
 	<center>
 		<canvas id="canvas1" width="200" height="120"></canvas>		
-		<div style="border:1px solid #8c8c8c; width:70%; height:45vh; padding-left:10px;padding-right:10px; margin:10px;overflow-y: auto;background-color:white;">
+		<div id="ethicForm">
 			<h3>Web Game For Studying Language Evolution.</h3>
 			<p>This is a game designed to help us understand languages and how they evolve over time. Players will use instructions in a made-up language to communicate with each other and solve different tasks.
 			</p>
@@ -39,7 +39,7 @@
 			<p>Do you agree to take part in this study?
 			</p>
 		</div>
-		<div style="background-color:white;border-radius: 15px;width:400px;padding:2px 0px;border:1px solid #8c8c8c;">
+		<div id="submitEthic">
 			<input type="checkbox" name="checkbox" value="check" id="agree" /><strong> I have read and agree to the consent form.</strong> <br/>
 			<button name="submit" value="submit" onclick="agreeEthics();">Submit</button>
 		</div>

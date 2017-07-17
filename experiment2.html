@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <title>Web Game For Studying Language Evolution</title>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href=style.css>	 	
+    <link rel="stylesheet" type="text/css" href="css/style.css">	 
 	<link rel="icon" type="image/png" href="block.png">
 	
-	<script src="block_script.js"></script>	
-	<script src="block_action.js"></script>	
+	<script src="js/block_script.js"></script>	
+	<script src="js/block_action.js"></script>	
 	
-	<script src="translate.js"></script>
-	<script src="config.js"></script>
-	<script src="variables.js"></script>
+	<script src="js/translate.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/variables.js"></script>
   </head>
   <body> 	
-	<span id="debug" style="color:red;font-weight: bold;"></span>
+	<span id="debug"></span>
 	<script>
 		if(debugMode) document.getElementById("debug").innerHTML = 'Debug mode. <button onclick="resetVariables();">resetVariables</button> <button onclick="skipLevelPart2();">Skip level</button> <button onclick="skipAllLevelPart2();">Skip all levels</button>';		
 	</script>
 	<center>
-		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">			
+		<div id="wrapper" align="left">			
 			<div id="third">
-				<button id="help" style="cursor:pointer;" onclick="showInstructionPopUp('block');" title="Help">?</button>				
-				<button id="about" style="cursor:pointer;" onclick="showAboutPopUp('block');" title="About">i</button> 
+				<button id="help" onclick="showInstructionPopUp('block');" title="Help">?</button>				
+				<button id="about" onclick="showAboutPopUp('block');" title="About">i</button> 
 				<strong>Part 2</strong><br/>
 				<span >Blocks:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -34,18 +34,18 @@
 				</div>
 				<div class="instructions2">	
 					Instruction: <div id="newInstruction" style="display: inline-block;padding-left:15px;width:600px;border-radius: 25px;border: 1px solid #8c8c8c;"></div>
-					<button id="submit" style="display:inline;cursor:pointer;" onclick="submitAnswer2();">Submit</button> 
+					<button id="submit" style="display:inline;" onclick="submitAnswer2();">Submit</button> 
 					<br/><center><div id="keyboard"></div></center>		
 					<span >Question mark '?' button for help.</span >
 				</div>			
 			</div>		
 			
-			<div class="instructions" id="instructions" style="background-color:#e6e6e6;padding:15px;">
+			<div class="instructions" id="instructions" style="padding:15px;">
 				<div id='close' style="cursor:pointer;" onclick="showInstructionPopUp('none');">x</div>		
 				<h3>Part 2 Instructions:</h3>
 				<br/>
 				Now that you've learned about the blockworld language, it's time to create instructions for someone else to follow! Just like in part 1, there is a workspace and a starting pattern, but now you get to see the goal pattern, and need to come up with instructions in the blockworld language to help someone create it. Below is a schematic the the task screen, and the steps in each task. If you don't remember the language exactly, don't worry -- just do the best you can.
-				<center><img src="instruction2.gif" style="cursor:not-allowed;" width="37%" height="37%" ></center>
+				<center><img src="images/instruction2.gif" style="cursor:not-allowed;" width="37%" height="37%" ></center>
 				<ol>
 					<li>Check out which blocks you have in the block section.</li>
 					<li>Check out how is the task before and after solved.</li>
@@ -56,15 +56,15 @@
 				<h3>Buttons</h3>
 				<strong>Delete</strong>: Press the button to delete the last token.<br/>
 				<strong>Submit</strong>: Press the button when you have the desired block pattern to evaluate if its correct.
-				<center><button style="cursor:pointer;" onclick="showInstructionPopUp('none');">Close</button>
+				<center><button onclick="showInstructionPopUp('none');">Close</button>
 				
 			</div>
 			
-			<div class="instructions" id="about1" align="left" style="background-color:#e6e6e6;" >
+			<div class="instructions" id="about1" align="left" >
 				<div id='close' style="cursor:pointer;" onclick="showAboutPopUp('none');">x</div>		
 				<h3>About the game:</h3>			
 				<div style="position: absolute;top:30px;padding:15px;" >
-					<img style="cursor:not-allowed;float:left; display:inline;padding:30px;" width="10%" height="10%" src="blocks.png">
+					<img src="images/blocks.png" style="cursor:not-allowed;float:left; display:inline;padding:30px;" width="10%" height="10%" >
 				
 				  
 				  You have entered blockworld, inhabited by people whose only interest is in arranging colored blocks into patterns.
@@ -83,7 +83,7 @@
 				  <p>There are several words to learn and it might be difficult to remember everything. Just do your best and know that it's ok to make mistakes. 
 				  
 					<p><span style="color:red;font-size:16px;">Note: </span>Please don't use the back button to try to go back to an earlier task. Just do the best you can on each task.
-					<center><button style="cursor:pointer;" onclick="showAboutPopUp('none');">Next</button></center>
+					<center><button onclick="showAboutPopUp('none');">Next</button></center>
 				</div>
 			</div>
 		</div>		
