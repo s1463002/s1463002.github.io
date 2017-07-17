@@ -764,11 +764,7 @@
 		if (localStorage.getItem("version") === null || localStorage.getItem("version")!=version.toString()){		
 			resetVariables();
 		}else if(localStorage.getItem("experiment")=="0" &&  x.indexOf("index")!=-1){	
-			if(x.indexOf("https")!=-1){
-				loadFiles();
-			}else{
-				document.writeln("<script type='text/javascript' src='json/language.json'></script>");
-			}
+			loadFiles();
 			randomTokensForWords();
 			loadTranslations();//Load translation
 			setVariables();//Store variables
