@@ -22,8 +22,10 @@ function getFileFromServer(url, doneCallback) {
 }
 function loadFiles(){
 	getFileFromServer("json/tasks.json", function(text) {
+		alert('1');
 		if (text === null) {
 			//Error
+			alert('Error');
 		}
 		else {
 			alert(text);
