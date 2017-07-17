@@ -29,12 +29,12 @@ function loadFiles(){
 			tasks = JSON.parse(text);
 		}
 	});
-	getFileFromServer("json/tokens.json", function(text) {
+	getFileFromServer("json/tokens.txt", function(text) {
 		if (text === null) {
 			//Error
 		}
 		else {
-			tokens = JSON.parse(text);
+			tokens = text.split(",");
 		}
 	});
 	getFileFromServer("json/words.json", function(text) {
