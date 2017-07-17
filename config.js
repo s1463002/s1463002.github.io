@@ -26,6 +26,7 @@ function loadFiles(){
 			//Error
 		}
 		else {
+			alert(text);
 			tasks = JSON.parse(text);
 		}
 	});
