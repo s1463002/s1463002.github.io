@@ -468,7 +468,6 @@
 		return str;
 	}
 
-	var chunker;
 	function submitSurvey(){	
 		survey=[];
 		survey.push("Age:"+document.getElementById("age").value);
@@ -484,22 +483,13 @@
 		game_json.answers = answers;
 		game_json.tasks = tasks;
 		game_json.survey = survey;
-		
+	
+		game_json.experimentId="shrdlevo";
+		game_json.sessionId="010101010";
+  
 		//alert(JSON.stringify(game_json))						
-		if(saveInServer){
-		    try{
-				chunker = new ChunkWs("ws://somata.inf.ed.ac.uk/chunks/ws",function(a,b,c) {
-					console.log("Chunker callback, args: a="+a+", b=" + b + ", c=" + JSON.stringify(c));
-					if(b==true) {
-						throw ("Error in sending websocket message, response was " + JSON.stringify(c));
-					}
-				});
-				chunker.sendChunk(JSON.stringify(game_json));	
-			}catch(e){
-				downloadJSON=true;
-			    alert(e);
-			    throw e;
-			}
+		if(saveInServer){	
+			chunker.sendChunk(game_json);			
 		}
 		if(downloadJSON){
 			download("shrdlevo.json",JSON.stringify(game_json));
@@ -508,6 +498,8 @@
 		setVariables();	
 		window.open("done.html","_self");
 	}
+	
+
 	
 	
 	function download(fileNameToSaveAs, textToWrite) {
@@ -808,4 +800,26 @@
 	  };
 
 	  reader.readAsText(selectedFile);
+	}
+
+	function skipLevelPart1(){
+		current_task = tasks[0].conf[level].after[0];
+		blockAndNext();
+		nextLevel();
+	}
+	
+	function skipAllLevelPart1(){
+		level=tasks[0].conf.length-1;
+		nextLevel();
+	}
+	
+	function skipLevelPart2(){
+		creatingInstruction = tokens[1];
+		submitAnswer2();
+		
+	}
+	
+	function skipAllLevelPart2(){
+		level=tasks[0].conf.length-1;
+		skipLevelPart2();
 	}

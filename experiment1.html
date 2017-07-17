@@ -13,7 +13,11 @@
 	<script src="block_action.js"></script>	
 	<script src="config.js"></script>
   </head>
-  <body> 	
+  <body> 
+	<span id="debug" style="color:red;font-weight: bold;"></span>
+	<script>
+		if(debugMode) document.getElementById("debug").innerHTML = 'Debug mode. <button onclick="resetVariables();">resetVariables</button> <button onclick="skipLevelPart1();">Skip level</button> <button onclick="skipAllLevelPart1();">Skip all levels</button>';		
+	</script>
 	<center>		
 		<div id="wrapper" style="border: 1px solid #bfbfbf;" align="left">
 			<div id="first">	
@@ -105,9 +109,7 @@
 			
 		</div>				
 	</center>
-	
-	<button id="resetVariables" style="cursor:pointer;position: absolute; top:0; left:0px;" onclick="resetVariables();">resetVariables</button>
-	
+			
 	<script src="block_events.js"></script>	
 	<script>
 		getVariables();

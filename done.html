@@ -129,7 +129,11 @@
       }
     </script>
   </head>
-  <body> 		
+  <body> 	
+	<span id="debug" style="color:red;font-weight: bold;"></span>
+	<script>
+		if(debugMode) document.getElementById("debug").innerHTML = 'Debug mode.<button id="resetVariables" style="cursor:pointer;position: absolute; top:1; left:90px;" onclick="resetVariables();">resetVariables</button>';		
+	</script>  
 	<script>
 		getVariables();
 	</script>
@@ -151,8 +155,6 @@
 			</div>	
 		</div>				
 	</center>
-	
-	<button id="resetVariables" style="cursor:pointer;position: absolute; top:0; left:0px;" onclick="resetVariables();">resetVariables</button>
 		
   </body>
 </html>

@@ -2,12 +2,14 @@
 loadTranslations();
 var version=1.36;
 var versionB=version;
-var sessionID=Math.random();
 
 var numberAttempts = 5;
-var saveInServer = false;
-var downloadJSON = true;
+var debugMode = true;
+var saveInServer = true;
+var downloadJSON = false;
 
+
+//Other variables
 var b_size = 30;
 var pattern_separation = 270;//Separate patters last attempt, before and after when all of them in screen
 var startTime;
