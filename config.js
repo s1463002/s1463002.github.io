@@ -1,57 +1,5 @@
-//Load task
-//This event is called when the DOM is fully loaded
-var tasks;
-//First position is used to denote an space with " " or a word "a" or nothing "". (No spaces at the beginig or end of sentences).
-var tokens;
-//All posible words to use for the game, consider always space.
-var words;
-   
-function getFileFromServer(url, doneCallback) {
-    var xhr;
-
-    xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = handleStateChange;
-    xhr.open("GET", url, false);
-    xhr.send();
-
-    function handleStateChange() {
-        if (xhr.readyState === 4) {
-            doneCallback(xhr.status == 200 ? xhr.responseText : null);
-        }
-    }
-}
-function loadFiles(){
-	getFileFromServer("json/tasks.json", function(text) {
-		if (text === null) {
-			//Error
-		}
-		else {
-			tasks = JSON.parse(text);
-		}
-	});
-	getFileFromServer("json/tokens.txt", function(text) {
-		if (text === null) {
-			//Error
-		}
-		else {
-			tokens = text.split(",");
-		}
-	});
-	getFileFromServer("json/words.json", function(text) {
-		if (text === null) {
-			//Error
-		}
-		else {
-			words = JSON.parse(text);
-		}
-	});
-}
-
 //Configuration variables and Init variables
-loadFiles();
 loadTranslations();
-alert(':::'+JSON.stringify(tasks));
-
 var version=1.36;
 var versionB=version;
 var sessionID=Math.random();
@@ -60,7 +8,6 @@ var numberAttempts = 5;
 var saveInServer = false;
 var downloadJSON = true;
 
-/*******************Game variables*******************************/
 var b_size = 30;
 var pattern_separation = 270;//Separate patters last attempt, before and after when all of them in screen
 var startTime;
@@ -82,7 +29,7 @@ var current_task = '';//Participant solving task panel bottom right
 var creatingInstruction = [];//Creates the instruction for the next participant
 var answers = [];//Store time, attempts and result for each task as a JSON
 var survey = [];//Store time, attempts and result for each task as a JSON
-//tasksB = tasks;//To restart to the begining.
+tasksB = tasks;//To restart to the begining.
 
 //Colors to use for blocks
 var block_colors=[
@@ -94,7 +41,6 @@ var block_colors=[
 {"color":"purple","unselect":"#5900b3","select":"#26004d"},
 {"color":"brown","unselect":"#4d2600","select":"#1a0d00"}
 ]
-
 
 function loadTranslations(){		
 	space = getTranslation(" ");

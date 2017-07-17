@@ -4,17 +4,17 @@
 	<!-- https://s1463002.github.io/ -->
     <meta charset="UTF-8">
     <title>Web Game For Studying Language Evolution</title>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href=style.css>	 
 	<link rel="icon" type="image/png" href="block.png">	
 	
-	<script src="loadVariables.js"></script>
-	
+	<script type="text/javascript" src="json/tasks.json"></script>	
+	<script type="text/javascript" src="json/language.json"></script>	
 	<script src="config.js"></script>
 	<script src="block_script.js"></script>	
 	<script src="block_action.js"></script>	
   </head>
-  <body>   	
+  <body>  		
 	<center>
 		<canvas id="canvas1" width="200" height="120"></canvas>		
 		<div style="border:1px solid #8c8c8c; width:70%; height:45vh; padding-left:10px;padding-right:10px; margin:10px;overflow-y: auto;background-color:white;">
@@ -38,7 +38,8 @@
 		</div>
 	</center>
 	<canvas id="blocksCanvas" width="1" height="1"></canvas>
-	<script>		
+	<script>
+		getVariables();
 		// Animation function
 		function draw(){			
 			var canvas = document.getElementById("canvas1");
@@ -62,8 +63,7 @@
 			requestAnimationFrame(draw);
 		}
 		draw();	
-		
-		getVariables();
+
 	</script>
   </body>
 </html>
