@@ -30,7 +30,8 @@
 	///////////////////////////////////////////////
 		
 	function loadInstruction() {
-		document.getElementById("instruction").innerHTML = tasks[0].conf[level].instruction;
+		document.getElementById("instruction").innerHTML = JSON.stringify(tasks);
+		//document.getElementById("instruction").innerHTML = tasks[0].conf[level].instruction;
 	}
 		
 		
