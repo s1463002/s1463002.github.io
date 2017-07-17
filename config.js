@@ -48,6 +48,7 @@ function loadFiles(){
 }
 
 //Configuration variables and Init variables
+loadFiles();
 loadTranslations();
 var version=1.36;
 var versionB=version;
