@@ -635,6 +635,60 @@
 		setVariables();
 	}
 	
+	function loadFiles(){
+		var error= false;
+		getFileFromServer(taskFile, function(text) {
+			if (text === null) {
+				error = true;
+			}
+			else {
+				tasks = JSON.parse(text);
+			}
+		});
+		getFileFromServer(tokensFile, function(text) {
+			if (text === null) {
+				error = true;
+			}
+			else {
+				tokens = text.split(",");
+			}
+		});
+		getFileFromServer(wordsFile, function(text) {
+			if (text === null) {
+				error = true;
+			}
+			else {
+				words = JSON.parse(text);
+			}
+		});	
+		if(error){
+			alert('Game not loading files!')
+		}
+	}
+	
+	function getFileFromServer(url, doneCallback) {
+		var xhr;
+
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = handleStateChange;
+		xhr.open("GET", url, false);
+		xhr.send();
+
+		function handleStateChange() {
+			if (xhr.readyState === 4) {
+				doneCallback(xhr.status == 200 ? xhr.responseText : null);
+			}
+		}
+	}
+	getFileFromServer("json/tasks.json", function(text) {
+		if (text === null) {
+		   alert('hi')
+		}
+		else {
+			tasks = loadFile(text);
+		}
+	});
+
 	//COOKIES
 	function agreeEthics(){
 		if(document.getElementById('agree').checked) { 
@@ -710,7 +764,11 @@
 		if (localStorage.getItem("version") === null || localStorage.getItem("version")!=version.toString()){		
 			resetVariables();
 		}else if(localStorage.getItem("experiment")=="0" &&  x.indexOf("index")!=-1){	
-			//Load files	
+			if(x.indexOf("https")!=-1){
+				loadFiles();
+			}else{
+				document.writeln("<script type='text/javascript' src='json/language.json'></script>");
+			}
 			randomTokensForWords();
 			loadTranslations();//Load translation
 			setVariables();//Store variables

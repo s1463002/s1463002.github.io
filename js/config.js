@@ -6,6 +6,6 @@ var debugMode = true;
 var saveInServer = true;
 var downloadJSON = false;
 
-var taskFile = "";
-var tokensFile = "";
-var wordsFile = "";
+var taskFile = "json/tasks.json";
+var tokensFile = "json/tokens.txt";
+var wordsFile = "jwon/words.json";
