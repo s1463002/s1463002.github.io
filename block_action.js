@@ -695,7 +695,7 @@
 		localStorage.setItem("current_blocks", current_blocks);
 		localStorage.setItem("current_task", current_task);
 		localStorage.setItem("creatingInstruction", creatingInstruction);
-		alert( JSON.stringify(tasks))
+		alert( JSON.stringify(tasks));
 		localStorage.setItem("tasks",  JSON.stringify(tasks));
 		localStorage.setItem("answers", JSON.stringify(answers));
 		localStorage.setItem("survey", survey.toString());
