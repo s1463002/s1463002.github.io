@@ -3,7 +3,7 @@
 {"word":"add","token":"2,10"},
 {"word":"remove","token":"15,8,1"},
 {"word":"on","token":"19,17"},
-{"word":"all","token":"12,20"},
+{"word":"all","token":"12"},
 {"word":"blue","token":"5,18"},
 {"word":"orange","token":"9,10"}
 ]
