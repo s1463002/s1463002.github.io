@@ -665,7 +665,7 @@
 			}
 		});	
 		if(error){
-			alert('Game not loading files!')
+			console.log('Game not loading files!')
 		}
 	}
 	
