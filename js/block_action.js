@@ -643,6 +643,7 @@
 				console.log("tasks")
 			}
 			else {
+				console.log(text)
 				tasks = JSON.parse(text);
 			}
 		});
@@ -652,6 +653,7 @@
 				console.log("tokens")
 			}
 			else {
+				console.log(text)
 				tokens = text.split(",");
 			}
 		});
@@ -661,6 +663,7 @@
 				console.log("words")
 			}
 			else {
+				console.log(text)
 				words = JSON.parse(text);
 			}
 		});	
@@ -781,11 +784,8 @@
 		current_task = localStorage.getItem("current_task");
 		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");			
 		tasks = JSON.parse(localStorage.getItem("tasks"));
-		words = JSON.parse(localStorage.getItem("words"));
-		console.log(localStorage.getItem("tasks"));
-		try{
-			tokens = (localStorage.getItem("tokens")).split(",");
-		}catch(e){}
+		words = JSON.parse(localStorage.getItem("words"));				
+		tokens = (localStorage.getItem("tokens")).split(",");
 		answers = JSON.parse(localStorage.getItem("answers"));
 		survey = (localStorage.getItem("survey")).split(",");		
 		
