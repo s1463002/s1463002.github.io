@@ -680,14 +680,6 @@
 			}
 		}
 	}
-	getFileFromServer("json/tasks.json", function(text) {
-		if (text === null) {
-		   alert('hi')
-		}
-		else {
-			tasks = loadFile(text);
-		}
-	});
 
 	//COOKIES
 	function agreeEthics(){
