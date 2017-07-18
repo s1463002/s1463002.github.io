@@ -651,6 +651,7 @@
 			}
 			else {
 				tokens = text.split(",");
+				console.log(tokens)
 			}
 		});
 		getFileFromServer(wordsFile, function(text) {
