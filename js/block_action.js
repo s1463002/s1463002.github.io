@@ -642,8 +642,7 @@
 				error = true;
 				console.log("tasks")
 			}else {
-				tasks = JSON.parse(text);
-				console.log(text)				
+				tasks = JSON.parse(text);			
 			}
 		});
 		getFileFromServer(tokensFile, function(text) {
@@ -651,8 +650,7 @@
 				error = true;
 				console.log("tokens")
 			}else {
-				tokens = text.split(",");
-				console.log(text)				
+				tokens = text.split(",");			
 			}
 		});
 		getFileFromServer(wordsFile, function(text) {
@@ -661,7 +659,6 @@
 				console.log("words")
 			}else {
 				words = JSON.parse(text);
-				console.log(text)				
 			}
 		});	
 		if(error){
