@@ -41,6 +41,20 @@ function loadTranslations(){
 		tasks[0].conf[i].instruction=translation;
 		tasks[0].conf[i].old_instruction=translation;
 	}	
+	
+	for(var i=0;i<tasks[0].extra_conf.length;i++){
+		translation = "";
+		translate_sentence = tasks[0].extra_conf[i].instruction;		
+		var words = translate_sentence.split(" ");		
+		for(var j=0;j<words.length;j++){			
+			word = getTranslation(words[j]);
+			translation+=word;
+			if(j<words.length-1)
+				translation+=space;
+		}
+		tasks[0].extra_conf[i].instruction=translation;
+		tasks[0].extra_conf[i].old_instruction=translation;
+	}
 }
 	
 function getTranslation(word){	

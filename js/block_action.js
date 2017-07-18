@@ -431,6 +431,17 @@
 		
 	}
 	
+	function switchLevels(){
+		for(i=0;i<tasks[0].extra_conf.length;i++){
+			//Save the current level in variable
+			current_level = tasks[0].conf[parseInt(tasks[0].extra_conf[i].i)];
+			//replace that level for the extra conf level
+			tasks[0].conf[parseInt(tasks[0].extra_conf[i].i)]=tasks[0].extra_conf[i];
+			//Save the current level in extra conf.
+			tasks[0].extra_conf[i]=current_level;
+		}
+	}
+	
 	function nextLevel(){
 		try{
 			clearInterval(animation);
@@ -449,6 +460,7 @@
 			experiment=2;
 			showInstructions='block';
 			showAbout='none';
+			switchLevels();
 			setVariables();				
 			window.open("experiment2.html","_self");
 		}		
