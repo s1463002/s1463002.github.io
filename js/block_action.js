@@ -643,7 +643,7 @@
 				console.log("tasks")
 			}else {
 				tasks = JSON.parse(text);
-				console.log("load")				
+				console.log(text)				
 			}
 		});
 		getFileFromServer(tokensFile, function(text) {
@@ -652,7 +652,7 @@
 				console.log("tokens")
 			}else {
 				tokens = text.split(",");
-				console.log("load")				
+				console.log(text)				
 			}
 		});
 		getFileFromServer(wordsFile, function(text) {
@@ -661,7 +661,7 @@
 				console.log("words")
 			}else {
 				words = JSON.parse(text);
-				console.log("load")				
+				console.log(text)				
 			}
 		});	
 		if(error){
