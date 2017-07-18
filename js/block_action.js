@@ -783,6 +783,7 @@
 		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");			
 		tasks = JSON.parse(localStorage.getItem("tasks"));
 		words = JSON.parse(localStorage.getItem("words"));
+		console.log(localStorage.getItem("tasks"));
 		try{
 			tokens = (localStorage.getItem("tokens")).split(",");
 		}catch(e){}
