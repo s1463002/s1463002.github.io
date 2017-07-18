@@ -635,9 +635,10 @@
 		setVariables();
 	}
 	
-	function loadFiles(){
+
+	function loadFiles(url){
 		var error= false;
-		getFileFromServer(taskFile, function(text) {
+		getFileFromServer(url+taskFile, function(text) {
 			if (text === null) {
 				error = true;
 				console.log("tasks")
@@ -645,7 +646,7 @@
 				tasks = JSON.parse(text);			
 			}
 		});
-		getFileFromServer(tokensFile, function(text) {
+		getFileFromServer(url+tokensFile, function(text) {
 			if (text === null) {
 				error = true;
 				console.log("tokens")
@@ -653,7 +654,7 @@
 				tokens = text.split(",");			
 			}
 		});
-		getFileFromServer(wordsFile, function(text) {
+		getFileFromServer(url+wordsFile, function(text) {
 			if (text === null) {
 				error = true;
 				console.log("words")
@@ -668,7 +669,7 @@
 	
 	function getFileFromServer(url, doneCallback) {
 		var xhr;
-
+		
 		xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = handleStateChange;
 		xhr.open("GET", url, false);
@@ -676,7 +677,7 @@
 
 		function handleStateChange() {
 			if (xhr.readyState === 4) {
-				doneCallback(xhr.status == 200 ? xhr.responseText : null);
+				doneCallback(xhr.status == 200? xhr.responseText : null);
 			}
 		}
 	}
@@ -756,7 +757,11 @@
 		if (localStorage.getItem("version") === null || localStorage.getItem("version")!=version.toString()){		
 			resetVariables();
 		}else if(localStorage.getItem("experiment")=="0" &&  x.indexOf("index")!=-1){	
-			loadFiles();
+			if(x.indexOf("https")!=-1){
+				loadFiles("");				
+			}else{
+				loadFiles(urlLocal);							
+			}
 			randomTokensForWords();
 			loadTranslations();//Load translation
 			setVariables();//Store variables

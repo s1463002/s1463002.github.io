@@ -14,3 +14,6 @@ var tokensFile = "json/tokens.txt";
 
 //json with posible works to use in the instructions, the tokens are randomize with a function. Number of sylabes will be the same
 var wordsFile = "json/words.json";
+
+//use https url for LOCAL testing
+var urlLocal = "https://s1463002.github.io/";

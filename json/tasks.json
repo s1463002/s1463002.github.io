@@ -30,5 +30,11 @@
 		{"blocks":"","before":"1234_1256_1000","after":["0234_0156"],"instruction":"remove all blue remove orange add blue on orange"},
 		{"blocks":"","before":"3456_2300_0100","after":["0000"],"instruction":"remove all"},
 		{"blocks":"456","before":"000","after":["456","465","546","564","645","654"],"instruction":"add all"}
+	],
+	"replace":[	
+		{"blocks":"1","before":"0","after":["1"],"instruction":"add blue"},
+		{"blocks":"2","before":"00","after":["02","20"],"instruction":"add orange"},
+		{"blocks":"12","before":"000","after":["012","021","102","120","201","210"],"instruction":"add orange blue"},
+		{"blocks":"1122","before":"000","after":["221","212","122"],"instruction":"add orange orange blue"}
 	]
 }]
