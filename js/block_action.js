@@ -780,14 +780,17 @@
 		current_blocks = localStorage.getItem("current_blocks");
 		current_task = localStorage.getItem("current_task");
 		try{
-			creatingInstruction = localStorage.getItem("creatingInstruction").split(",");	
-			survey = (localStorage.getItem("survey")).split(",");					
+			creatingInstruction = localStorage.getItem("creatingInstruction").split(",");					
 		}catch(e){}
 		tasks = JSON.parse(localStorage.getItem("tasks"));
 		words = JSON.parse(localStorage.getItem("words"));				
-		tokens = (localStorage.getItem("tokens")).split(",");
+		try{
+			tokens = (localStorage.getItem("tokens")).split(",");
+		}catch(e){}	
 		answers = JSON.parse(localStorage.getItem("answers"));
-		
+		try{
+			survey = (localStorage.getItem("survey")).split(",");					
+		}catch(e){}
 		
 		if(x.indexOf("summary")==-1){	
 			if(experiment==0 && x.indexOf("index")==-1){	
