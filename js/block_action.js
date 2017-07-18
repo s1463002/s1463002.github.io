@@ -636,6 +636,7 @@
 	}
 	
 	function loadFiles(){
+		console.log('??????')
 		var error= false;
 		getFileFromServer(taskFile, function(text) {
 			if (text === null) {
