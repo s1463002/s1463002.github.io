@@ -646,7 +646,9 @@
 			}
 		});
 		getFileFromServer(tokensFile, function(text) {
+			console.log('Meh')
 			if (text === null) {
+				console.log('Error')
 				error = true;
 			}
 			else {
