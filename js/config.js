@@ -8,4 +8,4 @@ var downloadJSON = false;
 
 var taskFile = "json/tasks.json";
 var tokensFile = "json/tokens.txt";
-var wordsFile = "jwon/words.json";
+var wordsFile = "json/words.json";

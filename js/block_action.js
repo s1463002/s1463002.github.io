@@ -636,30 +636,29 @@
 	}
 	
 	function loadFiles(){
-		console.log('??????')
 		var error= false;
 		getFileFromServer(taskFile, function(text) {
 			if (text === null) {
 				error = true;
+				console.log("tasks")
 			}
 			else {
 				tasks = JSON.parse(text);
 			}
 		});
 		getFileFromServer(tokensFile, function(text) {
-			console.log('Meh')
 			if (text === null) {
-				console.log('Error')
 				error = true;
+				console.log("tokens")
 			}
 			else {
 				tokens = text.split(",");
-				console.log(tokens)
 			}
 		});
 		getFileFromServer(wordsFile, function(text) {
 			if (text === null) {
 				error = true;
+				console.log("words")
 			}
 			else {
 				words = JSON.parse(text);
