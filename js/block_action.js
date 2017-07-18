@@ -641,9 +641,7 @@
 			if (text === null) {
 				error = true;
 				console.log("tasks")
-			}
-			else {
-				console.log(text)
+			}else {
 				tasks = JSON.parse(text);
 			}
 		});
@@ -651,9 +649,7 @@
 			if (text === null) {
 				error = true;
 				console.log("tokens")
-			}
-			else {
-				console.log(text)
+			}else {
 				tokens = text.split(",");
 			}
 		});
@@ -661,9 +657,7 @@
 			if (text === null) {
 				error = true;
 				console.log("words")
-			}
-			else {
-				console.log(text)
+			}else {
 				words = JSON.parse(text);
 			}
 		});	
