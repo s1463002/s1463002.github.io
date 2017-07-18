@@ -764,7 +764,8 @@
 			loadTranslations();//Load translation
 			setVariables();//Store variables
 		}				
-				
+		
+		
 		version = parseFloat(localStorage.getItem("version"));
 		experiment = parseInt(localStorage.getItem("experiment"));
 		level = parseInt(localStorage.getItem("level"));
