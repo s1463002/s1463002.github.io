@@ -494,6 +494,8 @@
 		var game_json = {};
 		game_json.answers = answers;
 		game_json.tasks = tasks;
+		game_json.words = words;
+		game_json.tokens = tokens.toString();
 		game_json.survey = survey;
 	
 		game_json.experimentId="shrdlevo";
@@ -511,37 +513,34 @@
 		window.open("done.html","_self");
 	}
 	
-
-	
-	
 	function download(fileNameToSaveAs, textToWrite) {
-	  /* Saves a text string as a blob file*/  
-	  var ie = navigator.userAgent.match(/MSIE\s([\d.]+)/),
-		  ie11 = navigator.userAgent.match(/Trident\/7.0/) && navigator.userAgent.match(/rv:11/),
-		  ieEDGE = navigator.userAgent.match(/Edge/g),
-		  ieVer=(ie ? ie[1] : (ie11 ? 11 : (ieEDGE ? 12 : -1)));
-
-	  if (ie && ieVer<10) {
-		console.log("No blobs on IE ver<10");
-		return;
-	  }
-
-	  var textFileAsBlob = new Blob([textToWrite], {
-		type: 'text/plain'
-	  });
-
-	  if (ieVer>-1) {
-		window.navigator.msSaveBlob(textFileAsBlob, fileNameToSaveAs);
-
-	  } else {
-		var downloadLink = document.createElement("a");
-		downloadLink.download = fileNameToSaveAs;
-		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-		downloadLink.onclick = function(e) { document.body.removeChild(e.target); };
-		downloadLink.style.display = "none";
-		document.body.appendChild(downloadLink);
-		downloadLink.click();
-	  }
+		/* Saves a text string as a blob file*/  
+		var ie = navigator.userAgent.match(/MSIE\s([\d.]+)/),
+			ie11 = navigator.userAgent.match(/Trident\/7.0/) && navigator.userAgent.match(/rv:11/),
+			ieEDGE = navigator.userAgent.match(/Edge/g),
+			ieVer=(ie ? ie[1] : (ie11 ? 11 : (ieEDGE ? 12 : -1)));
+	
+		if (ie && ieVer<10) {
+			console.log("No blobs on IE ver<10");
+			return;
+		}
+	
+		var textFileAsBlob = new Blob([textToWrite], {
+			type: 'text/plain'
+		});
+	
+		if (ieVer>-1) {
+			window.navigator.msSaveBlob(textFileAsBlob, fileNameToSaveAs);
+	
+		} else {
+			var downloadLink = document.createElement("a");
+			downloadLink.download = fileNameToSaveAs;
+			downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+			downloadLink.onclick = function(e) { document.body.removeChild(e.target); };
+			downloadLink.style.display = "none";
+			document.body.appendChild(downloadLink);
+			downloadLink.click();
+		}
 	}
 
 	////////RUN LOAD/////////////////////////		
@@ -830,25 +829,27 @@
 			showAboutPopUp(showAbout);
 		}
 	}
-
-	var text;
+	
 	function onFileSelected(event) {
-	  var selectedFile = event.target.files[0];
-	  var reader = new FileReader();
+		var text;
+		var selectedFile = event.target.files[0];
+		var reader = new FileReader();
 
-	  reader.onload = function(event) {
-		text = event.target.result;
-		json = JSON.parse(text);
+		reader.onload = function(event) {
+			text = event.target.result;
+			json = JSON.parse(text);
 		
-		answers = json.answers;
-		tasks = json.tasks;
-		survey = json.survey;
+			answers = json.answers;
+			tasks = json.tasks;
+			survey = json.survey;
+			words = json.words;
+			tokens = json.tokens.split(',');
 		
-		setVariables();
-		location.reload();	
-	  };
+			setVariables();
+			location.reload();	
+		};
 
-	  reader.readAsText(selectedFile);
+		reader.readAsText(selectedFile);
 	}
 
 	function skipLevelPart1(){
