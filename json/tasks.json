@@ -37,6 +37,6 @@
 		{"i":"13","blocks":"1122","before":"2000_1000","after":["2220","2202","2022","0222"],"instruction":"remove blue add all orange"},
 		{"i":"17","blocks":"2221","before":"1112","after":["2222"],"instruction":"remove all blue add all orange"},
 		{"i":"20","blocks":"1122","before":"120","after":["120_110","102_101","012_011","021_011","210_110","201_101"],"instruction":"add blue on orange add blue on blue"},
-		{"i":"23","blocks":"1","before":"3231_3212","after":["2220_1110","2202_1101","2022_1011","0222_0111"],"instruction":"remove all add all orange add all blue on orange"}
+		{"i":"23","blocks":"111222","before":"3450","after":["2220_1110","2202_1101","2022_1011","0222_0111"],"instruction":"remove all add all orange add all blue on orange"}
 	]
 }]
