@@ -1,5 +1,5 @@
 //Configuration variables and Init variables
-var version=1.37;
+var version=1.40;
 
 var numberAttempts = 5;
 var debugMode = true;
