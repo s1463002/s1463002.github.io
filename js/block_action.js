@@ -783,7 +783,9 @@
 		creatingInstruction = localStorage.getItem("creatingInstruction").split(",");			
 		tasks = JSON.parse(localStorage.getItem("tasks"));
 		words = JSON.parse(localStorage.getItem("words"));
-		tokens = (localStorage.getItem("tokens")).split(",");
+		try{
+			tokens = (localStorage.getItem("tokens")).split(",");
+		}catch(e){}
 		answers = JSON.parse(localStorage.getItem("answers"));
 		survey = (localStorage.getItem("survey")).split(",");		
 		
