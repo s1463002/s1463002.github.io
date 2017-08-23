@@ -676,6 +676,7 @@
 				console.log("tasks")
 			}else {
 				tasks = JSON.parse(text);
+				console.log(text);
 				for(var i=0;i<tasks[0].conf.length;i++){					
 					randomTaskNumber.push(i);
 				}
