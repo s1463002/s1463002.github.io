@@ -30,7 +30,10 @@
 	///////////////////////////////////////////////
 		
 	function loadInstruction() {
-		document.getElementById("instruction").innerHTML = tasks[0].conf[level].instruction;
+		//console.log("level: "+level)
+		//console.log("randomTaskNumber: "+randomTaskNumber)
+		//console.log("randomTaskNumber[level]: "+randomTaskNumber[level])
+		document.getElementById("instruction").innerHTML = tasks[0].conf[randomTaskNumber[level]].instruction;
 	}
 		
 		
@@ -115,7 +118,7 @@
 		if(left==0)
 			context.clearRect(b_size*5, 0, canvas.width, canvas.height);
 		else
-			context.clearRect(b_size*5+left, 0, canvas.width, canvas.height);
+			context.clearRect(b_size*5+left, 0, canvas.width, 280);
 		
 		cur_task = lvl;
 		floor_size=3;
@@ -284,10 +287,12 @@
 	
 	function submitAnswer(){			
 		showButton('submit',0);
-		currentAttempts++;		
+		currentAttempts++;	
+		if(currentTaskAttempts!='') currentTaskAttempts+=',';
+		currentTaskAttempts+=current_task;
 		var result = false;
-		for(var i=0;i<tasks[0].conf[level].after.length;i++){
-			if(tasks[0].conf[level].after[i]==current_task){
+		for(var i=0;i<tasks[0].conf[randomTaskNumber[level]].after.length;i++){
+			if(tasks[0].conf[randomTaskNumber[level]].after[i]==current_task){
 				result=true;
 				break;
 			}
@@ -314,12 +319,16 @@
 			alert("You need to write an instruction in order to submit.")
 			return;
 		}
+		
+		try{
+			clearInterval(animation);
+		}catch(Exception){}			
 							
 		var string = "";
 		for (var i = 0; i < creatingInstruction.length; i++) {
 			string+=creatingInstruction[i];
 		}
-		tasks[0].conf[level].instruction=string.trim();
+		tasks[0].conf[randomTaskNumber[level]].instruction=string.trim();
 					
 		level++;
 		
@@ -337,10 +346,11 @@
 	}
 	  
 	var index=0;
+	var distance = 0;
 	function loop(){
-		if(index>=tasks[0].conf[level].after.length)
+		if(index>=tasks[0].conf[randomTaskNumber[level]].after.length)
 			index=0;
-		loadTask(blocksCanvas,tasks[0].conf[level].after[index],-1,pattern_separation*2);
+		loadTask(blocksCanvas,tasks[0].conf[randomTaskNumber[level]].after[index],-1,pattern_separation*distance);
 		index++;
 	
 		var context = blocksCanvas.getContext('2d');        
@@ -348,8 +358,8 @@
 		context.fillStyle = 'black';
 
 			
-		context.fillText('All correct', 690,230);	
-		context.fillText('patterns:', 690,245);	
+		context.fillText('All correct', pattern_separation*(distance+0.56),230);	
+		context.fillText('patterns:', pattern_separation*(distance+0.56),245);	
 	}
 	
 	function blockAndNext(){
@@ -359,17 +369,19 @@
 		saveTask();
 		
 		var result = false;
-		for(var i=0;i<tasks[0].conf[level].after.length;i++){
-			if(tasks[0].conf[level].after[i]==current_task){
+		for(var i=0;i<tasks[0].conf[randomTaskNumber[level]].after.length;i++){
+			if(tasks[0].conf[randomTaskNumber[level]].after[i]==current_task){
 				result=true;
 				break;
 			}
 				
 		}
 		if(!result){
-			loadTask(blocksCanvas,tasks[0].conf[level].before,-1,pattern_separation);
-			loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
+			loadTask(blocksCanvas,tasks[0].conf[randomTaskNumber[level]].before,-1,pattern_separation);
+			loadBlocks(blocksCanvas,tasks[0].conf[randomTaskNumber[level]].blocks);
 			// request new frame
+			
+			distance = 2;
 			loop();
 			animation = setInterval(loop,1500);				
 			
@@ -405,25 +417,26 @@
 		timeDiff /= 1000;
 		// get seconds (Original had 'round' which incorrectly counts 0:28, 0:29, 1:30 ... 1:59, 1:0)
 		var task_json = {};
-		var seconds = Math.round(timeDiff % 60);
-		task_json.idParent=tasks[0].id;
-		task_json.task=level;
-		task_json.time=seconds;
+		var seconds = Math.round(timeDiff % 60 *100)/100;					
+		task_json.task = randomTaskNumber[level];
+		task_json.time = seconds;
 		
 		var result = false;
-		for(var i=0;i<tasks[0].conf[level].after.length;i++){
-			if(tasks[0].conf[level].after[i]==current_task){
+		for(var i=0;i<tasks[0].conf[randomTaskNumber[level]].after.length;i++){
+			if(tasks[0].conf[randomTaskNumber[level]].after[i]==current_task){
 				result=true;
 				break;
 			}
 				
 		}
 		if(result){
-			task_json.result=1;	
+			task_json.result = 1;	
 		}else{
-			task_json.result=0;
+			task_json.result = 0;
 		}
-		task_json.attempts=currentAttempts;
+		task_json.attempts = currentAttempts;
+		task_json.taskAttempts = currentTaskAttempts;
+		
 		//alert(JSON.stringify(task_json))
 		
 		answers.push(task_json);
@@ -452,6 +465,7 @@
 		level++;
 		done=0;
 		currentAttempts = 0;
+		currentTaskAttempts = "";
 		if(level<tasks[0].conf.length){			
 			setVariables();	
 			loadAllCanvas();
@@ -492,8 +506,11 @@
 		}
 						
 		var game_json = {};
+		game_json.chainId=tasks[0].id;
+		game_json.idVersion=version;		
 		game_json.answers = answers;
 		game_json.tasks = tasks;
+		game_json.tasks[0].id = (parseInt(tasks[0].id)+1).toString();
 		game_json.words = words;
 		game_json.tokens = tokens.toString();
 		game_json.survey = survey;
@@ -555,8 +572,8 @@
 		showButton('submit',1);
 		showButton('next',0);
 		loadInstruction();
-		loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
-		current_task = loadTask(blocksCanvas,tasks[0].conf[level].before);		
+		loadBlocks(blocksCanvas,tasks[0].conf[randomTaskNumber[level]].blocks);
+		current_task = loadTask(blocksCanvas,tasks[0].conf[randomTaskNumber[level]].before);		
 		writeMessage(blocksCanvas, numberAttempts-currentAttempts+' attempts left.');		
 	}	
 	
@@ -569,8 +586,8 @@
 		
 		startTime = new Date();
 		
-		loadTask(blocksCanvas,tasks[0].conf[level].before);
-		loadTask(blocksCanvas,tasks[0].conf[level].after[0],-1,pattern_separation);
+		loadTask(blocksCanvas,tasks[0].conf[randomTaskNumber[level]].before);
+		//loadTask(blocksCanvas,tasks[0].conf[randomTaskNumber[level]].after[0],-1,pattern_separation);
 		loadBlocks(blocksCanvas,tasks[0].conf[level].blocks);
 		progress(blocksCanvas,level);
 		
@@ -578,7 +595,11 @@
 		context.font = '14pt Calibri';
 		context.fillStyle = 'black';
 		context.fillText('Before:', 160,230);			
-		context.fillText('After:', 460,230);		
+		//context.fillText('After:', 460,230);	
+
+		distance = 1;
+		loop();
+		animation = setInterval(loop,1500);				
 		
 	}	
 	
@@ -654,7 +675,13 @@
 				error = true;
 				console.log("tasks")
 			}else {
-				tasks = JSON.parse(text);			
+				tasks = JSON.parse(text);
+				for(var i=0;i<tasks[0].conf.length;i++){					
+					randomTaskNumber.push(i);
+				}
+				if(randomTasks){
+					randomTaskNumber.sort(function(a, b){return 0.5 - Math.random()});
+				}
 			}
 		});
 		getFileFromServer(url+tokensFile, function(text) {
@@ -709,11 +736,13 @@
 		alert("VERSION: "+version
 			+"\n experiment: "+experiment
 			+"\n level: "+level
+			+"\n randomTaskNumber: "+randomTaskNumber			
 			+"\n done: "+done
 			+"\n showInstructions: "+showInstructions
 			+"\n showAbout: "+showAbout			
 			+"\n block_actions: "+block_actions
 			+"\n currentAttempts: "+currentAttempts
+			+"\n currentTaskAttempts: "+currentTaskAttempts			
 			+"\n cubes: "+ JSON.stringify(cubes)
 			+"\n task_cubes: "+ JSON.stringify(task_cubes)
 			+"\n click_block: "+click_block
@@ -734,11 +763,13 @@
 		localStorage.setItem("version", version.toString());
 		localStorage.setItem("experiment", experiment.toString());
 		localStorage.setItem("level", level.toString());
+		localStorage.setItem("randomTaskNumber", randomTaskNumber.toString());		
 		localStorage.setItem("done", done.toString());
 		localStorage.setItem("showInstructions", showInstructions);	
 		localStorage.setItem("showAbout", showAbout);			
 		localStorage.setItem("block_actions", block_actions.toString());
 		localStorage.setItem("currentAttempts", currentAttempts.toString());
+		localStorage.setItem("currentTaskAttempts", currentTaskAttempts.toString());		
 		localStorage.setItem("cubes", JSON.stringify(cubes));
 		localStorage.setItem("task_cubes", JSON.stringify(task_cubes));
 		localStorage.setItem("click_block", click_block.toString());
@@ -781,11 +812,15 @@
 		version = parseFloat(localStorage.getItem("version"));
 		experiment = parseInt(localStorage.getItem("experiment"));
 		level = parseInt(localStorage.getItem("level"));
+		try{
+			randomTaskNumber = (localStorage.getItem("randomTaskNumber")).split(",");		
+		}catch(e){}
 		done = parseInt(localStorage.getItem("done"));
 		showInstructions = localStorage.getItem("showInstructions");		
 		showAbout = localStorage.getItem("showAbout");				
 		block_actions = parseInt(localStorage.getItem("block_actions"));
 		currentAttempts = parseInt(localStorage.getItem("currentAttempts"));
+		currentTaskAttempts = localStorage.getItem("currentTaskAttempts");
 		cubes = JSON.parse(localStorage.getItem("cubes"));
 		task_cubes = JSON.parse(localStorage.getItem("task_cubes"));
 		click_block = parseInt(localStorage.getItem("click_block"));
@@ -853,7 +888,7 @@
 	}
 
 	function skipLevelPart1(){
-		current_task = tasks[0].conf[level].after[0];
+		current_task = tasks[0].conf[randomTaskNumber[level]].after[0];
 		blockAndNext();
 		nextLevel();
 	}
