@@ -39,7 +39,7 @@ function loadTranslations(){
 			if(j<words.length-1)
 				translation+=space;
 		}
-		if(translation=="") translation = translate_sentence;
+		if(translation.trim()=="") translation = translate_sentence;
 		tasks[0].conf[i].instruction=translation;
 		tasks[0].conf[i].old_instruction=translation;
 	}	
@@ -54,6 +54,7 @@ function loadTranslations(){
 			if(j<words.length-1)
 				translation+=space;
 		}
+		if(translation.trim()=="") translation = translate_sentence;
 		tasks[0].extra_conf[i].instruction=translation;
 		tasks[0].extra_conf[i].old_instruction=translation;
 	}
