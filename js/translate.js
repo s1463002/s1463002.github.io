@@ -30,7 +30,8 @@ function loadTranslations(){
 	space = getTranslation(" ");
 	for(var i=0;i<tasks[0].conf.length;i++){
 		translation = "";
-		translate_sentence = tasks[0].conf[i].instruction;		
+		translate_sentence = tasks[0].conf[i].instruction;	
+		console.log("console.log(translate_sentence): "+translate_sentence);
 		var words = translate_sentence.split(" ");		
 		for(var j=0;j<words.length;j++){			
 			word = getTranslation(words[j]);
@@ -38,6 +39,7 @@ function loadTranslations(){
 			if(j<words.length-1)
 				translation+=space;
 		}
+		console.log("translation: "+translation);
 		tasks[0].conf[i].instruction=translation;
 		tasks[0].conf[i].old_instruction=translation;
 	}	
