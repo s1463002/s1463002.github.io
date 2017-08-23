@@ -673,7 +673,6 @@
 		getFileFromServer(url+taskFile, function(text) {
 			if (text === null) {
 				error = true;
-				console.log("tasks")
 			}else {
 				tasks = JSON.parse(text);
 				console.log(text);
