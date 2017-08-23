@@ -1,6 +1,7 @@
 //Configuration variables and Init variables
-var version=1.41;
+var version=1.42;
 
+var randomTasks = false;
 var numberAttempts = 5;
 var debugMode = true;
 var saveInServer = true;
