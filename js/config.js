@@ -6,6 +6,7 @@ var numberAttempts = 5;
 var debugMode = true;
 var saveInServer = true;
 var downloadJSON = false;
+var dataFromSomata = true;
 
 //loads the json with tasks and instructions with english words, and translate before starting using to the block language
 var taskFile = "json/tasks.json";
