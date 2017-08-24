@@ -675,7 +675,6 @@
 				error = true;
 			}else {
 				tasks = JSON.parse(text);
-				console.log(text);
 				for(var i=0;i<tasks[0].conf.length;i++){					
 					randomTaskNumber.push(i);
 				}
@@ -702,7 +701,17 @@
 		});	
 		if(error){
 			console.log('Game not loading files!')
-		}
+		}			
+	}
+	
+	function getDataSomata(){
+		getFileFromServer(urlData, function(full_data) {
+			if (full_data === null) {
+				error = true;
+				console.log("full_data")
+			}
+		});	
+		console.log(full_data);
 	}
 	
 	function getFileFromServer(url, doneCallback) {
@@ -799,10 +808,11 @@
 		if (localStorage.getItem("version") === null || localStorage.getItem("version")!=version.toString()){		
 			resetVariables();
 		}else if(localStorage.getItem("experiment")=="0" &&  x.indexOf("index")!=-1){	
-			if(x.indexOf("https")!=-1){
-				loadFiles("");				
-			}else{
-				loadFiles(urlLocal);							
+			if(x.indexOf("https")!=-1){				
+				loadFiles("");		
+				getDataSomata();
+			}else{				
+				loadFiles(urlLocal);				
 			}
 			randomTokensForWords();
 			loadTranslations();//Load translation
@@ -907,4 +917,4 @@
 	function skipAllLevelPart2(){
 		level=tasks[0].conf.length-1;
 		skipLevelPart2();
-	}
+	}	

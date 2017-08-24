@@ -26,6 +26,7 @@ var randomTaskNumber = [];
 
 var tokens = "";
 var words = [];
+var full_data = "";
 
 //Colors to use for blocks
 var block_colors=[
