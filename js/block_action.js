@@ -810,7 +810,8 @@
 		}else if(localStorage.getItem("experiment")=="0" &&  x.indexOf("index")!=-1){	
 			if(x.indexOf("https")!=-1){				
 				loadFiles("");		
-				getDataSomata();
+				if(dataFromSomata)
+					getDataSomata();
 			}else{				
 				loadFiles(urlLocal);				
 			}
