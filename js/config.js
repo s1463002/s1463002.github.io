@@ -1,5 +1,5 @@
 //Configuration variables and Init variables
-var version=1.42;
+var version=1.43;
 
 var randomTasks = false;
 var numberAttempts = 5;
