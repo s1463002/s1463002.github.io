@@ -723,30 +723,36 @@
 		if(!dataFromSomata) return;
 		//urlData
 		
-		createCORSRequest('GET', urlData);
-		alert(full_data)
+		var xhr = createCORSRequest('GET', urlData);
+		if (!xhr) {
+		  throw new Error('CORS not supported');
+		}
+		xhr.send();
+		alert(xhr.responseText)
 	}
 	
 	function createCORSRequest(method, url) {
-		var req = new XMLHttpRequest();
+	  var xhr = new XMLHttpRequest();
+	  if ("withCredentials" in xhr) {
 
-		// Feature detection for CORS
-		if ('withCredentials' in req) {
-			req.open(method, url, true);
-			// Just like regular ol' XHR
-			req.onreadystatechange = function() {
-				if (req.readyState === 4) {
-					if (req.status >= 200 && req.status < 400) {
-						full_data = req.responseText;
-						// JSON.parse(req.responseText) etc.
-					} else {
-						full_data = "";
-						// Handle error case
-					}
-				}
-			};
-			req.send();
-		}
+		// Check if the XMLHttpRequest object has a "withCredentials" property.
+		// "withCredentials" only exists on XMLHTTPRequest2 objects.
+		xhr.open(method, url, true);
+
+	  } else if (typeof XDomainRequest != "undefined") {
+
+		// Otherwise, check if XDomainRequest.
+		// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+		xhr = new XDomainRequest();
+		xhr.open(method, url);
+
+	  } else {
+
+		// Otherwise, CORS is not supported by the browser.
+		xhr = null;
+
+	  }
+	  return xhr;
 	}
 
 	//COOKIES

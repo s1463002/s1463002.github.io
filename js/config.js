@@ -19,4 +19,4 @@ var wordsFile = "json/words.json";
 
 //use https url for LOCAL testing
 var urlLocal = "https://s1463002.github.io/";
-var urlData = "https://somata.inf.ed.ac.uk/shrdlevo/getData";
+var urlData = "http://html5rocks-cors.s3-website-us-east-1.amazonaws.com/index.html";
