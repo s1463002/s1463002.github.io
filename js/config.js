@@ -1,5 +1,5 @@
 //Configuration variables and Init variables
-var version=1.43;
+var version=1.44;
 
 var randomTasks = false;
 var numberAttempts = 5;
@@ -19,4 +19,4 @@ var wordsFile = "json/words.json";
 
 //use https url for LOCAL testing
 var urlLocal = "https://s1463002.github.io/";
-var urlData = "https://example.com";
+var urlData = "https://somata.inf.ed.ac.uk/shrdlevo/getData";
