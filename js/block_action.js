@@ -702,18 +702,8 @@
 		if(error){
 			console.log('Game not loading files!')
 		}			
-	}
-	
-	function getDataSomata(){
-		getFileFromServer(urlData, function(full_data) {
-			if (full_data === null) {
-				error = true;
-				console.log("full_data")
-			}
-		});	
-		console.log(full_data);
-	}
-	
+	}		
+
 	function getFileFromServer(url, doneCallback) {
 		var xhr;
 		
@@ -726,6 +716,36 @@
 			if (xhr.readyState === 4) {
 				doneCallback(xhr.status == 200? xhr.responseText : null);
 			}
+		}
+	}
+	
+	function getDataSomata() {
+		if(!dataFromSomata) return;
+		//urlData
+		
+		createCORSRequest('GET', urlData);
+		alert(full_data)
+	}
+	
+	function createCORSRequest(method, url) {
+		var req = new XMLHttpRequest();
+
+		// Feature detection for CORS
+		if ('withCredentials' in req) {
+			req.open(method, url, true);
+			// Just like regular ol' XHR
+			req.onreadystatechange = function() {
+				if (req.readyState === 4) {
+					if (req.status >= 200 && req.status < 400) {
+						full_data = req.responseText;
+						// JSON.parse(req.responseText) etc.
+					} else {
+						full_data = "";
+						// Handle error case
+					}
+				}
+			};
+			req.send();
 		}
 	}
 
@@ -810,11 +830,10 @@
 		}else if(localStorage.getItem("experiment")=="0" &&  x.indexOf("index")!=-1){	
 			if(x.indexOf("https")!=-1){				
 				loadFiles("");		
-				if(dataFromSomata)
-					getDataSomata();
 			}else{				
-				loadFiles(urlLocal);				
+				loadFiles(urlLocal);
 			}
+			getDataSomata();
 			randomTokensForWords();
 			loadTranslations();//Load translation
 			setVariables();//Store variables
